@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="本站概要, NightC">
+    <meta name="keywords" content="微服务学习笔记, NightC">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>本站概要 | NightC</title>
+    <title>微服务学习笔记 | NightC</title>
     <link rel="icon" type="image/png" href="/igor.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -320,12 +320,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://p1.music.126.net/up3v1txSyytIocZnS_bFZQ==/109951168977967996.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/cover1.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">本站概要</h1>
+                    <h1 class="description center-align post-title">微服务学习笔记</h1>
                 </div>
             </div>
         </div>
@@ -335,10 +335,104 @@
 
 
 
-<main class="container content">
+<main class="post-container content">
 
     
-    <!-- 文章内容详情 -->
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
 <div id="artDetail">
     <div class="card">
         <div class="card-content article-info">
@@ -347,8 +441,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E6%83%B3%E6%B3%95/">
-                                <span class="chip bg-color">想法</span>
+                            <a href="/tags/Learn/">
+                                <span class="chip bg-color">Learn</span>
                             </a>
                         
                     </div>
@@ -359,8 +453,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E6%88%91%E7%9A%84%E6%83%B3%E6%B3%95/" class="post-category">
-                                我的想法
+                            <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                学习
                             </a>
                         
                     </div>
@@ -372,28 +466,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2024-11-06
+                    2025-10-14
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-11-20
+                    2025-10-14
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    21
+                    1.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    5 分
                 </div>
                 
 
@@ -413,7 +507,145 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>这个站点主要为了分享我的想法和日常音乐感受</p>
+                <h1 id="微服务学习笔记"><a href="#微服务学习笔记" class="headerlink" title="微服务学习笔记"></a>微服务学习笔记</h1><h2 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h2><h3 id="docker介绍"><a href="#docker介绍" class="headerlink" title="docker介绍"></a>docker介绍</h3><p>使用Docker，这些完全不用考虑。就是因为Docker会自动搜索并下载MySQL。注意：这里下载的不是安装包，而是<strong>镜像。</strong>镜像中不仅包含了MySQL本身，还包含了其运行所需要的环境、配置、系统级函数库。因此它在运行时就有自己独立的环境，就可以跨系统运行，也不需要手动再次配置环境了。这套独立运行的隔离环境我们称为<strong>容器</strong>。</p>
+<h3 id="docker命令"><a href="#docker命令" class="headerlink" title="docker命令"></a>docker命令</h3><table>
+<thead>
+<tr>
+<th align="left"><strong>命令</strong></th>
+<th align="left"><strong>说明</strong></th>
+<th align="left"><strong>文档地址</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">docker pull</td>
+<td align="left">拉取镜像</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/commandline/pull/">docker pull</a></td>
+</tr>
+<tr>
+<td align="left">docker push</td>
+<td align="left">推送镜像到DockerRegistry</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/commandline/push/">docker push</a></td>
+</tr>
+<tr>
+<td align="left">docker images</td>
+<td align="left">查看本地镜像</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/commandline/images/">docker images</a></td>
+</tr>
+<tr>
+<td align="left">docker rmi</td>
+<td align="left">删除本地镜像</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/commandline/rmi/">docker rmi</a></td>
+</tr>
+<tr>
+<td align="left">docker run</td>
+<td align="left">创建并运行容器（不能重复创建）</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/commandline/run/">docker run</a></td>
+</tr>
+<tr>
+<td align="left">docker stop</td>
+<td align="left">停止指定容器</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/commandline/stop/">docker stop</a></td>
+</tr>
+<tr>
+<td align="left">docker start</td>
+<td align="left">启动指定容器</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/commandline/start/">docker start</a></td>
+</tr>
+<tr>
+<td align="left">docker restart</td>
+<td align="left">重新启动容器</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/commandline/restart/">docker restart</a></td>
+</tr>
+<tr>
+<td align="left">docker rm</td>
+<td align="left">删除指定容器</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/commandline/rm/">docs.docker.com</a></td>
+</tr>
+<tr>
+<td align="left">docker ps</td>
+<td align="left">查看容器</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/commandline/ps/">docker ps</a></td>
+</tr>
+<tr>
+<td align="left">docker logs</td>
+<td align="left">查看容器运行日志</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/commandline/logs/">docker logs</a></td>
+</tr>
+<tr>
+<td align="left">docker exec</td>
+<td align="left">进入容器</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/commandline/exec/">docker exec</a></td>
+</tr>
+<tr>
+<td align="left">docker save</td>
+<td align="left">保存镜像到本地压缩文件</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/commandline/save/">docker save</a></td>
+</tr>
+<tr>
+<td align="left">docker load</td>
+<td align="left">加载本地压缩文件到镜像</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/commandline/load/">docker load</a></td>
+</tr>
+<tr>
+<td align="left">docker inspect</td>
+<td align="left">查看容器详细信息</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/commandline/inspect/">docker inspect</a></td>
+</tr>
+</tbody></table>
+<h3 id="docker使用示例"><a href="#docker使用示例" class="headerlink" title="docker使用示例"></a>docker使用示例</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 第1步，去DockerHub查看nginx镜像仓库及相关信息</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 第2步，拉取Nginx镜像</span></span><br><span class="line">docker pull nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 第3步，查看镜像</span></span><br><span class="line">docker images</span><br><span class="line"><span class="comment"># 结果如下：</span></span><br><span class="line">REPOSITORY   TAG       IMAGE ID       CREATED         SIZE</span><br><span class="line">nginx        latest    <span class="number">605</span>c77e624dd   <span class="number">16</span> months ago   <span class="number">141</span>MB</span><br><span class="line">mysql        latest    <span class="number">3218</span>b38490ce   <span class="number">17</span> months ago   <span class="number">516</span>MB</span><br><span class="line"></span><br><span class="line"><span class="comment"># 第4步，创建并允许Nginx容器</span></span><br><span class="line">docker run <span class="literal">-d</span> <span class="literal">--name</span> nginx <span class="literal">-p</span> <span class="number">80</span>:<span class="number">80</span> nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 第5步，查看运行中容器</span></span><br><span class="line">docker <span class="built_in">ps</span></span><br><span class="line"><span class="comment"># 也可以加格式化方式访问，格式会更加清爽</span></span><br><span class="line">docker <span class="built_in">ps</span> <span class="literal">--format</span> <span class="string">&quot;table &#123;&#123;.ID&#125;&#125;\t&#123;&#123;.Image&#125;&#125;\t&#123;&#123;.Ports&#125;&#125;\t&#123;&#123;.Status&#125;&#125;\t&#123;&#123;.Names&#125;&#125;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 第6步，访问网页，地址：http://虚拟机地址</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 第7步，停止容器</span></span><br><span class="line">docker stop nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 第8步，查看所有容器</span></span><br><span class="line">docker <span class="built_in">ps</span> <span class="literal">-a</span> <span class="literal">--format</span> <span class="string">&quot;table &#123;&#123;.ID&#125;&#125;\t&#123;&#123;.Image&#125;&#125;\t&#123;&#123;.Ports&#125;&#125;\t&#123;&#123;.Status&#125;&#125;\t&#123;&#123;.Names&#125;&#125;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 第9步，再次启动nginx容器</span></span><br><span class="line">docker <span class="built_in">start</span> nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 第10步，再次查看容器</span></span><br><span class="line">docker <span class="built_in">ps</span> <span class="literal">--format</span> <span class="string">&quot;table &#123;&#123;.ID&#125;&#125;\t&#123;&#123;.Image&#125;&#125;\t&#123;&#123;.Ports&#125;&#125;\t&#123;&#123;.Status&#125;&#125;\t&#123;&#123;.Names&#125;&#125;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 第11步，查看容器详细信息</span></span><br><span class="line">docker inspect nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 第12步，进入容器,查看容器内目录</span></span><br><span class="line">docker exec <span class="literal">-it</span> nginx bash</span><br><span class="line"><span class="comment"># 或者，可以进入MySQL</span></span><br><span class="line">docker exec <span class="literal">-it</span> mysql mysql <span class="literal">-uroot</span> <span class="literal">-p</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 第13步，删除容器</span></span><br><span class="line">docker <span class="built_in">rm</span> nginx</span><br><span class="line"><span class="comment"># 发现无法删除，因为容器运行中，强制删除容器</span></span><br><span class="line">docker <span class="built_in">rm</span> <span class="operator">-f</span> nginx</span><br></pre></td></tr></table></figure>
+
+<h3 id="什么是数据卷"><a href="#什么是数据卷" class="headerlink" title="什么是数据卷"></a>什么是数据卷</h3><p><strong>数据卷（volume）</strong>是一个虚拟目录，是<strong>容器内目录</strong>与<strong>宿主机****目录</strong>之间映射的桥梁。</p>
+<p>以Nginx为例，我们知道Nginx中有两个关键的目录：</p>
+<ul>
+<li><code>html</code>：放置一些静态资源</li>
+<li><code>conf</code>：放置配置文件</li>
+</ul>
+<p>如果我们要让Nginx代理我们的静态资源，最好是放到<code>html</code>目录；如果我们要修改Nginx的配置，最好是找到<code>conf</code>下的<code>nginx.conf</code>文件。</p>
+<p>但遗憾的是，容器运行的Nginx所有的文件都在容器内部。所以我们必须利用数据卷将两个目录与宿主机目录关联，方便我们操作。如图：</p>
+<p><img src="C:\Users\22347\AppData\Roaming\Typora\typora-user-images\image-20251014223622117.png" alt="image-20251014223622117"></p>
+<p>在上图中：</p>
+<ul>
+<li>我们创建了两个数据卷：<code>conf</code>、<code>html</code></li>
+<li>Nginx容器内部的<code>conf</code>目录和<code>html</code>目录分别与两个数据卷关联。</li>
+<li>而数据卷conf和html分别指向了宿主机的<code>/var/lib/docker/volumes/conf/_data</code>目录和<code>/var/lib/docker/volumes/html/_data</code>目录</li>
+</ul>
+<p>这样以来，容器内的<code>conf</code>和<code>html</code>目录就 与宿主机的<code>conf</code>和<code>html</code>目录关联起来，我们称为<strong>挂载</strong>。此时，我们操作宿主机的<code>/var/lib/docker/volumes/html/_data</code>就是在操作容器内的<code>/usr/share/nginx/html/_data</code>目录。只要我们将静态资源放入宿主机对应目录，就可以被Nginx代理了。</p>
+<h3 id="数据卷的相关命令"><a href="#数据卷的相关命令" class="headerlink" title="数据卷的相关命令"></a>数据卷的相关命令</h3><table>
+<thead>
+<tr>
+<th align="left"><strong>命令</strong></th>
+<th align="left"><strong>说明</strong></th>
+<th align="left"><strong>文档地址</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">docker volume create</td>
+<td align="left">创建数据卷</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/commandline/volume_create/">docker volume create</a></td>
+</tr>
+<tr>
+<td align="left">docker volume ls</td>
+<td align="left">查看所有数据卷</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/commandline/volume_ls/">docs.docker.com</a></td>
+</tr>
+<tr>
+<td align="left">docker volume rm</td>
+<td align="left">删除指定数据卷</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/commandline/volume_prune/">docs.docker.com</a></td>
+</tr>
+<tr>
+<td align="left">docker volume inspect</td>
+<td align="left">查看某个数据卷的详情</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/commandline/volume_inspect/">docs.docker.com</a></td>
+</tr>
+<tr>
+<td align="left">docker volume prune</td>
+<td align="left">清除数据卷</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/commandline/volume_prune/">docker volume prune</a></td>
+</tr>
+</tbody></table>
+<p>数据挂载</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1.首先创建容器并指定数据卷，注意通过 -v 参数来指定数据卷</span></span><br><span class="line">docker run <span class="literal">-d</span> <span class="literal">--name</span> nginx <span class="literal">-p</span> <span class="number">80</span>:<span class="number">80</span> <span class="literal">-v</span> html:/usr/share/nginx/html nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.然后查看数据卷</span></span><br><span class="line">docker volume <span class="built_in">ls</span></span><br><span class="line"><span class="comment"># 结果</span></span><br><span class="line">DRIVER    VOLUME NAME</span><br><span class="line">local     <span class="number">29524</span>ff09715d3688eae3f99803a2796558dbd00ca584a25a4bbc193ca82459f</span><br><span class="line">local     html</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3.查看数据卷详情</span></span><br><span class="line">docker volume inspect html</span><br><span class="line"><span class="comment"># 结果</span></span><br><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&quot;CreatedAt&quot;</span>: <span class="string">&quot;2024-05-17T19:57:08+08:00&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Driver&quot;</span>: <span class="string">&quot;local&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Labels&quot;</span>: <span class="type">null</span>,</span><br><span class="line">        <span class="string">&quot;Mountpoint&quot;</span>: <span class="string">&quot;/var/lib/docker/volumes/html/_data&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Name&quot;</span>: <span class="string">&quot;html&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Options&quot;</span>: <span class="type">null</span>,</span><br><span class="line">        <span class="string">&quot;Scope&quot;</span>: <span class="string">&quot;local&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4.查看/var/lib/docker/volumes/html/_data目录</span></span><br><span class="line">ll /var/lib/docker/volumes/html/_data</span><br><span class="line"><span class="comment"># 可以看到与nginx的html目录内容一样，结果如下：</span></span><br><span class="line">总用量 <span class="number">8</span></span><br><span class="line"><span class="literal">-rw-r--r--</span>. <span class="number">1</span> root root <span class="number">497</span> <span class="number">12</span>月 <span class="number">28</span> <span class="number">2021</span> <span class="number">50</span>x.html</span><br><span class="line"><span class="literal">-rw-r--r--</span>. <span class="number">1</span> root root <span class="number">615</span> <span class="number">12</span>月 <span class="number">28</span> <span class="number">2021</span> index.html</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5.进入该目录，并随意修改index.html内容</span></span><br><span class="line"><span class="built_in">cd</span> /var/lib/docker/volumes/html/_data</span><br><span class="line">vi index.html</span><br><span class="line"></span><br><span class="line"><span class="comment"># 6.打开页面，查看效果</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 7.进入容器内部，查看/usr/share/nginx/html目录内的文件是否变化</span></span><br><span class="line">docker exec <span class="literal">-it</span> nginx bash</span><br></pre></td></tr></table></figure>
 
                 
             </div>
@@ -440,7 +672,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://ifhy.online/2024/11/06/ben-zhan-gai-yao/">http://ifhy.online/2024/11/06/ben-zhan-gai-yao/</a>
+                    <a href="http://ifhy.online/2025/10/14/wei-fu-wu-xue-xi-zong-jie/">http://ifhy.online/2025/10/14/wei-fu-wu-xue-xi-zong-jie/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -478,8 +710,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E6%83%B3%E6%B3%95/">
-                                    <span class="chip bg-color">想法</span>
+                                <a href="/tags/Learn/">
+                                    <span class="chip bg-color">Learn</span>
                                 </a>
                             
                         </div>
@@ -912,9 +1144,59 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2025/10/14/wei-fu-wu-xue-xi-zong-jie/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/cover1.jpg" class="responsive-img" alt="微服务学习笔记">
+                        
+                        <span class="card-title">微服务学习笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            我的学习笔记
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-10-14
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    学习
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Learn/">
+                        <span class="chip bg-color">Learn</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/2024/11/06/chromakopia-by-tyler-the.creator/">
                     <div class="card-image">
@@ -931,9 +1213,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2024-11-06
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-11-06
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -951,55 +1233,6 @@
                     
                     <a href="/tags/Tyler/">
                         <span class="chip bg-color">Tyler</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
-            </div>
-            <div class="card">
-                <a href="/2024/11/06/ben-zhan-gai-yao/">
-                    <div class="card-image">
-                        
-                        <img src="https://p1.music.126.net/up3v1txSyytIocZnS_bFZQ==/109951168977967996.jpg" class="responsive-img" alt="本站概要">
-                        
-                        <span class="card-title">本站概要</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-11-06
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E6%88%91%E7%9A%84%E6%83%B3%E6%B3%95/" class="post-category">
-                                    我的想法
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E6%83%B3%E6%B3%95/">
-                        <span class="chip bg-color">想法</span>
                     </a>
                     
                 </div>
@@ -1068,6 +1301,100 @@
 
 <script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
 
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
 
     
 
