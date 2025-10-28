@@ -480,14 +480,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.3k
+                    1.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    5 分
+                    6 分
                 </div>
                 
 
@@ -646,6 +646,42 @@
 </tbody></table>
 <p>数据挂载</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1.首先创建容器并指定数据卷，注意通过 -v 参数来指定数据卷</span></span><br><span class="line">docker run <span class="literal">-d</span> <span class="literal">--name</span> nginx <span class="literal">-p</span> <span class="number">80</span>:<span class="number">80</span> <span class="literal">-v</span> html:/usr/share/nginx/html nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.然后查看数据卷</span></span><br><span class="line">docker volume <span class="built_in">ls</span></span><br><span class="line"><span class="comment"># 结果</span></span><br><span class="line">DRIVER    VOLUME NAME</span><br><span class="line">local     <span class="number">29524</span>ff09715d3688eae3f99803a2796558dbd00ca584a25a4bbc193ca82459f</span><br><span class="line">local     html</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3.查看数据卷详情</span></span><br><span class="line">docker volume inspect html</span><br><span class="line"><span class="comment"># 结果</span></span><br><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&quot;CreatedAt&quot;</span>: <span class="string">&quot;2024-05-17T19:57:08+08:00&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Driver&quot;</span>: <span class="string">&quot;local&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Labels&quot;</span>: <span class="type">null</span>,</span><br><span class="line">        <span class="string">&quot;Mountpoint&quot;</span>: <span class="string">&quot;/var/lib/docker/volumes/html/_data&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Name&quot;</span>: <span class="string">&quot;html&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Options&quot;</span>: <span class="type">null</span>,</span><br><span class="line">        <span class="string">&quot;Scope&quot;</span>: <span class="string">&quot;local&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4.查看/var/lib/docker/volumes/html/_data目录</span></span><br><span class="line">ll /var/lib/docker/volumes/html/_data</span><br><span class="line"><span class="comment"># 可以看到与nginx的html目录内容一样，结果如下：</span></span><br><span class="line">总用量 <span class="number">8</span></span><br><span class="line"><span class="literal">-rw-r--r--</span>. <span class="number">1</span> root root <span class="number">497</span> <span class="number">12</span>月 <span class="number">28</span> <span class="number">2021</span> <span class="number">50</span>x.html</span><br><span class="line"><span class="literal">-rw-r--r--</span>. <span class="number">1</span> root root <span class="number">615</span> <span class="number">12</span>月 <span class="number">28</span> <span class="number">2021</span> index.html</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5.进入该目录，并随意修改index.html内容</span></span><br><span class="line"><span class="built_in">cd</span> /var/lib/docker/volumes/html/_data</span><br><span class="line">vi index.html</span><br><span class="line"></span><br><span class="line"><span class="comment"># 6.打开页面，查看效果</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 7.进入容器内部，查看/usr/share/nginx/html目录内的文件是否变化</span></span><br><span class="line">docker exec <span class="literal">-it</span> nginx bash</span><br></pre></td></tr></table></figure>
+
+<h2 id="MyBatisPlus"><a href="#MyBatisPlus" class="headerlink" title="MyBatisPlus"></a>MyBatisPlus</h2><h2 id="微服务组件"><a href="#微服务组件" class="headerlink" title="微服务组件"></a>微服务组件</h2><h2 id="Nacos注册中心"><a href="#Nacos注册中心" class="headerlink" title="Nacos注册中心"></a>Nacos注册中心</h2><h2 id="OpenFeign远程调用"><a href="#OpenFeign远程调用" class="headerlink" title="OpenFeign远程调用"></a>OpenFeign远程调用</h2><h2 id="GateWay网关"><a href="#GateWay网关" class="headerlink" title="GateWay网关"></a>GateWay网关</h2><h2 id="Sentinal流量控制"><a href="#Sentinal流量控制" class="headerlink" title="Sentinal流量控制"></a>Sentinal流量控制</h2><h2 id="Seata分布式事务"><a href="#Seata分布式事务" class="headerlink" title="Seata分布式事务"></a>Seata分布式事务</h2><h3 id="事务的xa和at模式"><a href="#事务的xa和at模式" class="headerlink" title="事务的xa和at模式"></a>事务的xa和at模式</h3><h4 id="xa模式"><a href="#xa模式" class="headerlink" title="xa模式"></a>xa模式</h4><p>特点：两阶段提交</p>
+<p>优点：</p>
+<p>​	确保ACID特性，强一致性</p>
+<p>​	常用数据库都支持，实现简单，并且没有代码侵入</p>
+<p>缺点：</p>
+<p>​	占用时间空间过多，性能较差，需要上一段释放资源才会执行下一阶段的事务</p>
+<p>​	依赖关系型数据库实现事务</p>
+<p><img src="C:\Users\22347\AppData\Roaming\Typora\typora-user-images\image-20251028132817170.png" alt="image-20251028132817170"></p>
+<h5 id="实现xa模式"><a href="#实现xa模式" class="headerlink" title="实现xa模式"></a>实现xa模式</h5><p><img src="C:\Users\22347\AppData\Roaming\Typora\typora-user-images\image-20251028133301325.png" alt="image-20251028133301325"></p>
+<h4 id="at模式"><a href="#at模式" class="headerlink" title="at模式"></a>at模式</h4><p>基本流程</p>
+<p><img src="C:\Users\22347\AppData\Roaming\Typora\typora-user-images\image-20251028133420139.png" alt="image-20251028133420139"></p>
+<p>阶段一<code>RM</code>的工作：</p>
+<ul>
+<li>注册分支事务</li>
+<li><em>记录undo-log（数据快照）</em></li>
+<li>执行业务sql并提交</li>
+<li>报告事务状态</li>
+</ul>
+<p>阶段二提交时<code>RM</code>的工作：</p>
+<ul>
+<li><em>删除undo-log即可</em></li>
+</ul>
+<p>阶段二回滚时<code>RM</code>的工作：</p>
+<ul>
+<li><em>根据undo-log恢复数据到更新前</em></li>
+</ul>
+<h5 id="流程梳理"><a href="#流程梳理" class="headerlink" title="流程梳理"></a>流程梳理</h5><p><img src="C:\Users\22347\AppData\Roaming\Typora\typora-user-images\image-20251028133709757.png" alt="image-20251028133709757"></p>
+<h5 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h5><p><img src="C:\Users\22347\AppData\Roaming\Typora\typora-user-images\image-20251028133741789.png" alt="image-20251028133741789"></p>
+<h5 id="AT与XA的区别"><a href="#AT与XA的区别" class="headerlink" title="AT与XA的区别"></a>AT与XA的区别</h5><p>简述<code>AT</code>模式与<code>XA</code>模式最大的区别是什么？</p>
+<ul>
+<li><code>XA</code>模式一阶段不提交事务，锁定资源；<code>AT</code>模式一阶段直接提交，不锁定资源。</li>
+<li><code>XA</code>模式依赖数据库机制实现回滚；<code>AT</code>模式利用数据快照实现数据回滚。</li>
+<li><code>XA</code>模式强一致；<code>AT</code>模式最终一致</li>
+</ul>
+<p>可见，AT模式使用起来更加简单，无业务侵入，性能更好。因此企业90%的分布式事务都可以用AT模式来解决。</p>
 
                 
             </div>
@@ -1418,7 +1454,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">3k</span>&nbsp;字
+                class="white-color">3.3k</span>&nbsp;字
             
             
             
