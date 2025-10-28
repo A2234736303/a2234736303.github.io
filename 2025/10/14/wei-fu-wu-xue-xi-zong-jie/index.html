@@ -480,14 +480,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.7k
+                    1.8k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    6 分
+                    7 分
                 </div>
                 
 
@@ -682,7 +682,12 @@
 <li><code>XA</code>模式强一致；<code>AT</code>模式最终一致</li>
 </ul>
 <p>可见，AT模式使用起来更加简单，无业务侵入，性能更好。因此企业90%的分布式事务都可以用AT模式来解决。</p>
-
+<h2 id="MQ"><a href="#MQ" class="headerlink" title="MQ"></a>MQ</h2><p>背景：异步通信</p>
+<p>微服务之间的调用链需要得到其他微服务的消息用于启动服务，将以往的串行消息发送，转为，</p>
+<p>一个业务执行完后，省略消息发送到下一个微服务的流程</p>
+<p>将消息发给MQ，其他微服务只需要负责监听MQ中的消息</p>
+<p>大大优化了单独微服务执行后所浪费的等待结束时间</p>
+<h3 id="同步调用"><a href="#同步调用" class="headerlink" title="同步调用"></a>同步调用</h3>
                 
             </div>
             <hr/>
@@ -1454,7 +1459,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">3.3k</span>&nbsp;字
+                class="white-color">3.4k</span>&nbsp;字
             
             
             
