@@ -480,14 +480,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    9.9k
+                    11.9k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    41 分
+                    49 分
                 </div>
                 
 
@@ -1018,7 +1018,7 @@
 <h3 id="3-9-3-消费者接收Object"><a href="#3-9-3-消费者接收Object" class="headerlink" title="3.9.3.消费者接收Object"></a>3.9.3.消费者接收Object</h3><p>我们在consumer服务中定义一个新的消费者，publisher是用Map发送，那么消费者也一定要用Map接收，格式如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RabbitListener(queues = &quot;object.queue&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">listenSimpleQueueMessage</span><span class="params">(Map&lt;String, Object&gt; msg)</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;消费者接收到object.queue消息：【&quot;</span> + msg + <span class="string">&quot;】&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h1 id="4-业务改造"><a href="#4-业务改造" class="headerlink" title="4.业务改造"></a>4.业务改造</h1><p>案例需求：改造余额支付功能，将支付成功后基于OpenFeign的交易服务的更新订单状态接口的同步调用，改为基于RabbitMQ的异步通知。</p>
+<h2 id="4-业务改造"><a href="#4-业务改造" class="headerlink" title="4.业务改造"></a>4.业务改造</h2><p>案例需求：改造余额支付功能，将支付成功后基于OpenFeign的交易服务的更新订单状态接口的同步调用，改为基于RabbitMQ的异步通知。</p>
 <p>如图：</p>
 <p><img src="https://b11et3un53m.feishu.cn/space/api/box/stream/download/asynccode/?code=ZWNmMWFjZmExYTg3N2U4Y2Q1NWFiYjY2YmJlZjIzZWVfa2tuSFlHb25Ea2RjYWYwSmFpUkNZNTdsdnFGQ0ZpcVZfVG9rZW46RmZVTmJkQ2Nqb3BYbWN4MFAzeWNQVjkxblJkXzE3NjE5MDkwNDA6MTc2MTkxMjY0MF9WNA" alt="img"></p>
 <p>说明：目前没有通知服务和积分服务，因此我们只关注交易服务，步骤如下：</p>
@@ -1029,20 +1029,122 @@
 <li>支付成功时不再调用交易服务更新订单状态的接口，而是发送一条消息到<code>pay.direct</code>，发送消息的<code>RoutingKey</code>  为<code>pay.success</code>，消息内容是订单id</li>
 <li>交易服务监听<code>trade.pay.success.queue</code>队列，接收到消息后更新订单状态为已支付</li>
 </ul>
-<h2 id="4-1-配置MQ"><a href="#4-1-配置MQ" class="headerlink" title="4.1.配置MQ"></a>4.1.配置MQ</h2><p>不管是生产者还是消费者，都需要配置MQ的基本信息。分为两步：</p>
+<h3 id="4-1-配置MQ"><a href="#4-1-配置MQ" class="headerlink" title="4.1.配置MQ"></a>4.1.配置MQ</h3><p>不管是生产者还是消费者，都需要配置MQ的基本信息。分为两步：</p>
 <p>1）添加依赖：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--消息发送--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-amqp<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>2）配置MQ地址：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">rabbitmq:</span></span><br><span class="line">    <span class="attr">host:</span> <span class="number">192.168</span><span class="number">.150</span><span class="number">.101</span> <span class="comment"># 你的虚拟机IP</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">5672</span> <span class="comment"># 端口</span></span><br><span class="line">    <span class="attr">virtual-host:</span> <span class="string">/hmall</span> <span class="comment"># 虚拟主机</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">hmall</span> <span class="comment"># 用户名</span></span><br><span class="line">    <span class="attr">password:</span> <span class="number">123</span> <span class="comment"># 密码</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="4-1-接收消息"><a href="#4-1-接收消息" class="headerlink" title="4.1.接收消息"></a>4.1.接收消息</h2><p>在trade-service服务中定义一个消息监听类：</p>
+<h3 id="4-1-接收消息"><a href="#4-1-接收消息" class="headerlink" title="4.1.接收消息"></a>4.1.接收消息</h3><p>在trade-service服务中定义一个消息监听类：</p>
 <p><img src="https://b11et3un53m.feishu.cn/space/api/box/stream/download/asynccode/?code=MjQ2M2NkZDJlMzc3MGM1NDA3Y2I0ZjFkYzU5YjA0NWJfbXgwOW0wdnNUSllMVWRWV3VYQmV1OTRLMFNkdXNDQ2ZfVG9rZW46UzdSWmJnVUJNb3FyVFp4VVhNaWNLc2YzbjlqXzE3NjE5MDkwNDA6MTc2MTkxMjY0MF9WNA" alt="img"></p>
 <p>其代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.hmall.trade.listener;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.hmall.trade.service.IOrderService;</span><br><span class="line"><span class="keyword">import</span> lombok.RequiredArgsConstructor;</span><br><span class="line"><span class="keyword">import</span> org.springframework.amqp.core.ExchangeTypes;</span><br><span class="line"><span class="keyword">import</span> org.springframework.amqp.rabbit.annotation.Exchange;</span><br><span class="line"><span class="keyword">import</span> org.springframework.amqp.rabbit.annotation.Queue;</span><br><span class="line"><span class="keyword">import</span> org.springframework.amqp.rabbit.annotation.QueueBinding;</span><br><span class="line"><span class="keyword">import</span> org.springframework.amqp.rabbit.annotation.RabbitListener;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PayStatusListener</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> IOrderService orderService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RabbitListener(bindings = @QueueBinding(</span></span><br><span class="line"><span class="meta">            value = @Queue(name = &quot;trade.pay.success.queue&quot;, durable = &quot;true&quot;),</span></span><br><span class="line"><span class="meta">            exchange = @Exchange(name = &quot;pay.direct&quot;),</span></span><br><span class="line"><span class="meta">            key = &quot;pay.success&quot;</span></span><br><span class="line"><span class="meta">    ))</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">listenPaySuccess</span><span class="params">(Long orderId)</span>&#123;</span><br><span class="line">        orderService.markOrderPaySuccess(orderId);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="4-2-发送消息"><a href="#4-2-发送消息" class="headerlink" title="4.2.发送消息"></a>4.2.发送消息</h2><p>修改<code>pay-service</code>服务下的<code>com.hmall.pay.``service``.impl.``PayOrderServiceImpl</code>类中的<code>tryPayOrderByBalance</code>方法：</p>
+<h3 id="4-2-发送消息"><a href="#4-2-发送消息" class="headerlink" title="4.2.发送消息"></a>4.2.发送消息</h3><p>修改<code>pay-service</code>服务下的<code>com.hmall.pay.``service``.impl.``PayOrderServiceImpl</code>类中的<code>tryPayOrderByBalance</code>方法：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> RabbitTemplate rabbitTemplate;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">tryPayOrderByBalance</span><span class="params">(PayOrderDTO payOrderDTO)</span> &#123;</span><br><span class="line">    <span class="comment">// 1.查询支付单</span></span><br><span class="line">    <span class="type">PayOrder</span> <span class="variable">po</span> <span class="operator">=</span> getById(payOrderDTO.getId());</span><br><span class="line">    <span class="comment">// 2.判断状态</span></span><br><span class="line">    <span class="keyword">if</span>(!PayStatus.WAIT_BUYER_PAY.equalsValue(po.getStatus()))&#123;</span><br><span class="line">        <span class="comment">// 订单不是未支付，状态异常</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">BizIllegalException</span>(<span class="string">&quot;交易已支付或关闭！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 3.尝试扣减余额</span></span><br><span class="line">    userClient.deductMoney(payOrderDTO.getPw(), po.getAmount());</span><br><span class="line">    <span class="comment">// 4.修改支付单状态</span></span><br><span class="line">    <span class="type">boolean</span> <span class="variable">success</span> <span class="operator">=</span> markPayOrderSuccess(payOrderDTO.getId(), LocalDateTime.now());</span><br><span class="line">    <span class="keyword">if</span> (!success) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">BizIllegalException</span>(<span class="string">&quot;交易已支付或关闭！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 5.修改订单状态</span></span><br><span class="line">    <span class="comment">// tradeClient.markOrderPaySuccess(po.getBizOrderNo());</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        rabbitTemplate.convertAndSend(<span class="string">&quot;pay.direct&quot;</span>, <span class="string">&quot;pay.success&quot;</span>, po.getBizOrderNo());</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        log.error(<span class="string">&quot;支付成功的消息发送失败，支付单id：&#123;&#125;， 交易单id：&#123;&#125;&quot;</span>, po.getId(), po.getBizOrderNo(), e);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="MQ高级"><a href="#MQ高级" class="headerlink" title="MQ高级"></a>MQ高级</h2><p>在之前对MQ的使用存在一些问题，例如，</p>
+<p>1.如何使用mq对于线程中的变量作为消息发送</p>
+<p>2.mq消息的发送可靠性和接收可靠性，确保信息能送到交换机中并分发给队列，队列能接受并正确消费</p>
+<h2 id="1-发送者的可靠性"><a href="#1-发送者的可靠性" class="headerlink" title="1.发送者的可靠性"></a>1.发送者的可靠性</h2><p>首先，我们一起分析一下消息丢失的可能性有哪些。</p>
+<p>消息从发送者发送消息，到消费者处理消息，需要经过的流程是这样的：</p>
+<p>暂时无法在飞书文档外展示此内容</p>
+<p>消息从生产者到消费者的每一步都可能导致消息丢失：</p>
+<ul>
+<li>发送消息时丢失：<ul>
+<li>生产者发送消息时连接MQ失败</li>
+<li>生产者发送消息到达MQ后未找到<code>Exchange</code></li>
+<li>生产者发送消息到达MQ的<code>Exchange</code>后，未找到合适的<code>Queue</code></li>
+<li>消息到达MQ后，处理消息的进程发生异常</li>
+</ul>
+</li>
+<li>MQ导致消息丢失：<ul>
+<li>消息到达MQ，保存到队列后，尚未消费就突然宕机</li>
+</ul>
+</li>
+<li>消费者处理消息时：<ul>
+<li>消息接收后尚未处理突然宕机</li>
+<li>消息接收后处理过程中抛出异常</li>
+</ul>
+</li>
+</ul>
+<p>综上，我们要解决消息丢失问题，保证MQ的可靠性，就必须从3个方面入手：</p>
+<ul>
+<li>确保生产者一定把消息发送到MQ</li>
+<li>确保MQ不会将消息弄丢</li>
+<li>确保消费者一定要处理消息</li>
+</ul>
+<p>这一章我们先来看如何确保生产者一定能把消息发送到MQ。</p>
+<h3 id="1-1-生产者重试机制"><a href="#1-1-生产者重试机制" class="headerlink" title="1.1.生产者重试机制"></a>1.1.生产者重试机制</h3><p>首先第一种情况，就是生产者发送消息时，出现了网络故障，导致与MQ的连接中断。</p>
+<p>为了解决这个问题，SpringAMQP提供的消息发送时的重试机制。即：当<code>RabbitTemplate</code>与MQ连接超时后，多次重试。</p>
+<p>修改<code>publisher</code>模块的<code>application.yaml</code>文件，添加下面的内容：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">rabbitmq:</span></span><br><span class="line">    <span class="attr">connection-timeout:</span> <span class="string">1s</span> <span class="comment"># 设置MQ的连接超时时间</span></span><br><span class="line">    <span class="attr">template:</span></span><br><span class="line">      <span class="attr">retry:</span></span><br><span class="line">        <span class="attr">enabled:</span> <span class="literal">true</span> <span class="comment"># 开启超时重试机制</span></span><br><span class="line">        <span class="attr">initial-interval:</span> <span class="string">1000ms</span> <span class="comment"># 失败后的初始等待时间</span></span><br><span class="line">        <span class="attr">multiplier:</span> <span class="number">1</span> <span class="comment"># 失败后下次的等待时长倍数，下次等待时长 = initial-interval * multiplier</span></span><br><span class="line">        <span class="attr">max-attempts:</span> <span class="number">3</span> <span class="comment"># 最大重试次数</span></span><br></pre></td></tr></table></figure>
+
+<p>我们利用命令停掉RabbitMQ服务：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker stop mq</span><br></pre></td></tr></table></figure>
+
+<p>然后测试发送一条消息，会发现会每隔1秒重试1次，总共重试了3次。消息发送的超时重试机制配置成功了！</p>
+<p><strong>注意</strong>：当网络不稳定的时候，利用重试机制可以有效提高消息发送的成功率。不过SpringAMQP提供的重试机制是<strong>阻塞式</strong>的重试，也就是说多次重试等待的过程中，当前线程是被阻塞的。</p>
+<p>如果对于业务性能有要求，建议禁用重试机制。如果一定要使用，请合理配置等待时长和重试次数，当然也可以考虑使用异步线程来执行发送消息的代码。</p>
+<h3 id="1-2-生产者确认机制"><a href="#1-2-生产者确认机制" class="headerlink" title="1.2.生产者确认机制"></a>1.2.生产者确认机制</h3><p>一般情况下，只要生产者与MQ之间的网路连接顺畅，基本不会出现发送消息丢失的情况，因此大多数情况下我们无需考虑这种问题。</p>
+<p>不过，在少数情况下，也会出现消息发送到MQ之后丢失的现象，比如：</p>
+<ul>
+<li>MQ内部处理消息的进程发生了异常</li>
+<li>生产者发送消息到达MQ后未找到<code>Exchange</code></li>
+<li>生产者发送消息到达MQ的<code>Exchange</code>后，未找到合适的<code>Queue</code>，因此无法路由</li>
+</ul>
+<p>针对上述情况，RabbitMQ提供了生产者消息确认机制，包括<code>Publisher Confirm</code>和<code>Publisher Return</code>两种。在开启确认机制的情况下，当生产者发送消息给MQ后，MQ会根据消息处理的情况返回不同的<strong>回执</strong>。</p>
+<p>具体如图所示：</p>
+<p><img src="https://b11et3un53m.feishu.cn/space/api/box/stream/download/asynccode/?code=MjVmMDU0NTI3YmI2NTNmNzRkODFiMDFmMzdiYTFjZjRfbjZXb1hlUUFrdHE2ZFl6OHlWdGplNjhaM1FJc2Q1MWZfVG9rZW46Vm9oUWJZd1NsbzhSNkF4ZmluR2NMTnE2bmxkXzE3NjE5MDk1ODc6MTc2MTkxMzE4N19WNA" alt="img"></p>
+<p>总结如下：</p>
+<ul>
+<li>当消息投递到MQ，但是路由失败时，通过<strong>Publisher Return</strong>返回异常信息，同时返回ack的确认信息，代表投递成功</li>
+<li>临时消息投递到了MQ，并且入队成功，返回ACK，告知投递成功</li>
+<li>持久消息投递到了MQ，并且入队完成持久化，返回ACK ，告知投递成功</li>
+<li>其它情况都会返回NACK，告知投递失败</li>
+</ul>
+<p>其中<code>ack</code>和<code>nack</code>属于<strong>Publisher Confirm</strong>机制，<code>ack</code>是投递成功；<code>nack</code>是投递失败。而<code>return</code>则属于<strong>Publisher Return</strong>机制。</p>
+<p>默认两种机制都是关闭状态，需要通过配置文件来开启。</p>
+<h3 id="1-3-实现生产者确认"><a href="#1-3-实现生产者确认" class="headerlink" title="1.3.实现生产者确认"></a>1.3.实现生产者确认</h3><h4 id="1-3-1-开启生产者确认"><a href="#1-3-1-开启生产者确认" class="headerlink" title="1.3.1.开启生产者确认"></a>1.3.1.开启生产者确认</h4><p>在publisher模块的<code>application.yaml</code>中添加配置：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">rabbitmq:</span></span><br><span class="line">    <span class="attr">publisher-confirm-type:</span> <span class="string">correlated</span> <span class="comment"># 开启publisher confirm机制，并设置confirm类型</span></span><br><span class="line">    <span class="attr">publisher-returns:</span> <span class="literal">true</span> <span class="comment"># 开启publisher return机制</span></span><br></pre></td></tr></table></figure>
+
+<p>这里<code>publisher-confirm-type</code>有三种模式可选：</p>
+<ul>
+<li><code>none</code>：关闭confirm机制</li>
+<li><code>simple</code>：同步阻塞等待MQ的回执</li>
+<li><code>correlated</code>：MQ异步回调返回回执</li>
+</ul>
+<p>一般我们推荐使用<code>correlated</code>，回调机制。</p>
+<h4 id="1-3-2-定义ReturnCallback"><a href="#1-3-2-定义ReturnCallback" class="headerlink" title="1.3.2.定义ReturnCallback"></a>1.3.2.定义ReturnCallback</h4><p>每个<code>RabbitTemplate</code>只能配置一个<code>ReturnCallback</code>，因此我们可以在配置类中统一设置。我们在publisher模块定义一个配置类：</p>
+<p><img src="https://b11et3un53m.feishu.cn/space/api/box/stream/download/asynccode/?code=NWQ5YjA2YWI2ZWU3OTViOTZmYmM3ZDQ0MzE1MzA5NjZfTEpocG5ocDl2MmZDb0JGQ1pVNVR1MjJ3MGd0R0RqZEhfVG9rZW46VnRMTGIwZFNGbzZYT2R4MUVFaWN6VnZibnZjXzE3NjE5MDk1ODc6MTc2MTkxMzE4N19WNA" alt="img"></p>
+<p>内容如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.itheima.publisher.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.AllArgsConstructor;</span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.springframework.amqp.core.ReturnedMessage;</span><br><span class="line"><span class="keyword">import</span> org.springframework.amqp.rabbit.core.RabbitTemplate;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.annotation.PostConstruct;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MqConfig</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> RabbitTemplate rabbitTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostConstruct</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">()</span>&#123;</span><br><span class="line">        rabbitTemplate.setReturnsCallback(<span class="keyword">new</span> <span class="title class_">RabbitTemplate</span>.ReturnsCallback() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">returnedMessage</span><span class="params">(ReturnedMessage returned)</span> &#123;</span><br><span class="line">                log.error(<span class="string">&quot;触发return callback,&quot;</span>);</span><br><span class="line">                log.debug(<span class="string">&quot;exchange: &#123;&#125;&quot;</span>, returned.getExchange());</span><br><span class="line">                log.debug(<span class="string">&quot;routingKey: &#123;&#125;&quot;</span>, returned.getRoutingKey());</span><br><span class="line">                log.debug(<span class="string">&quot;message: &#123;&#125;&quot;</span>, returned.getMessage());</span><br><span class="line">                log.debug(<span class="string">&quot;replyCode: &#123;&#125;&quot;</span>, returned.getReplyCode());</span><br><span class="line">                log.debug(<span class="string">&quot;replyText: &#123;&#125;&quot;</span>, returned.getReplyText());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-3-3-定义ConfirmCallback"><a href="#1-3-3-定义ConfirmCallback" class="headerlink" title="1.3.3.定义ConfirmCallback"></a>1.3.3.定义ConfirmCallback</h4><p>由于每个消息发送时的处理逻辑不一定相同，因此ConfirmCallback需要在每次发消息时定义。具体来说，是在调用RabbitTemplate中的convertAndSend方法时，多传递一个参数：</p>
+<p><img src="https://b11et3un53m.feishu.cn/space/api/box/stream/download/asynccode/?code=ZmY4ZDk0ZDRiYmE3NDU1ODU2ZDE0ZjFlOTY1OGU3YWRfWFBRTVBQRW1SeGozNTloOGE4d0RVdHM3SDEzQU44bjFfVG9rZW46RTJJY2JROWJRb0NEVFZ4OG04R2NpaWZYbktlXzE3NjE5MDk1ODc6MTc2MTkxMzE4N19WNA" alt="img"></p>
+<p>这里的CorrelationData中包含两个核心的东西：</p>
+<ul>
+<li><code>id</code>：消息的唯一标示，MQ对不同的消息的回执以此做判断，避免混淆</li>
+<li><code>SettableListenableFuture</code>：回执结果的Future对象</li>
+</ul>
+<p>将来MQ的回执就会通过这个<code>Future</code>来返回，我们可以提前给<code>CorrelationData</code>中的<code>Future</code>添加回调函数来处理消息回执：</p>
+<p><img src="https://b11et3un53m.feishu.cn/space/api/box/stream/download/asynccode/?code=OWM0NjZjNDMzNDI5MTVjYmZlOTVhYTc3YTFjMzYzNWJfdDVjRjVJem1ESHBLZVVLeUp1cHA1aml5b0Y3cnRWMHlfVG9rZW46VFI4MWJGOEUzb2NtNzJ4a2FxSGN1TjlObnBoXzE3NjE5MDk1ODc6MTc2MTkxMzE4N19WNA" alt="img"></p>
+<p>我们新建一个测试，向系统自带的交换机发送消息，并且添加<code>ConfirmCallback</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">testPublisherConfirm</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 1.创建CorrelationData</span></span><br><span class="line">    <span class="type">CorrelationData</span> <span class="variable">cd</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CorrelationData</span>();</span><br><span class="line">    <span class="comment">// 2.给Future添加ConfirmCallback</span></span><br><span class="line">    cd.getFuture().addCallback(<span class="keyword">new</span> <span class="title class_">ListenableFutureCallback</span>&lt;CorrelationData.Confirm&gt;() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onFailure</span><span class="params">(Throwable ex)</span> &#123;</span><br><span class="line">            <span class="comment">// 2.1.Future发生异常时的处理逻辑，基本不会触发</span></span><br><span class="line">            log.error(<span class="string">&quot;send message fail&quot;</span>, ex);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onSuccess</span><span class="params">(CorrelationData.Confirm result)</span> &#123;</span><br><span class="line">            <span class="comment">// 2.2.Future接收到回执的处理逻辑，参数中的result就是回执内容</span></span><br><span class="line">            <span class="keyword">if</span>(result.isAck())&#123; <span class="comment">// result.isAck()，boolean类型，true代表ack回执，false 代表 nack回执</span></span><br><span class="line">                log.debug(<span class="string">&quot;发送消息成功，收到 ack!&quot;</span>);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123; <span class="comment">// result.getReason()，String类型，返回nack时的异常描述</span></span><br><span class="line">                log.error(<span class="string">&quot;发送消息失败，收到 nack, reason : &#123;&#125;&quot;</span>, result.getReason());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// 3.发送消息</span></span><br><span class="line">    rabbitTemplate.convertAndSend(<span class="string">&quot;hmall.direct&quot;</span>, <span class="string">&quot;q&quot;</span>, <span class="string">&quot;hello&quot;</span>, cd);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果如下：</p>
+<p><img src="https://b11et3un53m.feishu.cn/space/api/box/stream/download/asynccode/?code=ODIyNDJhN2YwYjk2Mzc3MDMxMjIxMWNhMDY3NTZiOGVfWGFrS3dDc3Bwd1ZUUzFibzVGUEdJTEtXNUdPVDBXWWNfVG9rZW46WW1GMmJvOEM4b3Q3Q2V4WlhvcGNzSXlUblljXzE3NjE5MDk1ODc6MTc2MTkxMzE4N19WNA" alt="img"></p>
+<p>可以看到，由于传递的<code>RoutingKey</code>是错误的，路由失败后，触发了<code>return callback</code>，同时也收到了ack。</p>
+<p>当我们修改为正确的<code>RoutingKey</code>以后，就不会触发<code>return callback</code>了，只收到ack。</p>
+<p>而如果连交换机都是错误的，则只会收到nack。</p>
+<p><strong>注意</strong>：</p>
+<p>开启生产者确认比较消耗MQ性能，一般不建议开启。而且大家思考一下触发确认的几种情况：</p>
+<ul>
+<li>路由失败：一般是因为RoutingKey错误导致，往往是编程导致</li>
+<li>交换机名称错误：同样是编程错误导致</li>
+<li>MQ内部故障：这种需要处理，但概率往往较低。因此只有对消息可靠性要求非常高的业务才需要开启，而且仅仅需要开启ConfirmCallback处理nack就可以了。</li>
+</ul>
 
                 
             </div>
@@ -1815,7 +1917,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">11.6k</span>&nbsp;字
+                class="white-color">13.6k</span>&nbsp;字
             
             
             
