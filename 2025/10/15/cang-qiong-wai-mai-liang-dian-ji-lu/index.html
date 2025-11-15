@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="《ChromaKopia》by Tyler the.creator, NightC">
+    <meta name="keywords" content="苍穹外卖亮点记录, NightC">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>《ChromaKopia》by Tyler the.creator | NightC</title>
+    <title>苍穹外卖亮点记录 | NightC</title>
     <link rel="icon" type="image/png" href="/igor.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -320,12 +320,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/cover1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/cover.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">《ChromaKopia》by Tyler the.creator</h1>
+                    <h1 class="description center-align post-title">苍穹外卖亮点记录</h1>
                 </div>
             </div>
         </div>
@@ -441,8 +441,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Tyler/">
-                                <span class="chip bg-color">Tyler</span>
+                            <a href="/tags/Learn/">
+                                <span class="chip bg-color">Learn</span>
                             </a>
                         
                     </div>
@@ -453,8 +453,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E9%9F%B3%E4%B9%90/" class="post-category">
-                                音乐
+                            <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                学习
                             </a>
                         
                     </div>
@@ -466,21 +466,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2024-11-06
+                    2025-10-15
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-11-17
+                    2025-11-15
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.6k
+                    1.5k
                 </div>
                 
 
@@ -507,40 +507,54 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="《ChromaKopia》by-Tyler-the-creator"><a href="#《ChromaKopia》by-Tyler-the-creator" class="headerlink" title="《ChromaKopia》by Tyler the.creator"></a>《ChromaKopia》by Tyler the.creator</h1><hr>
-<p><strong>整专收听</strong></p>
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=330 src="//music.163.com/outchain/player?type=1&id=252094934&auto=0&height=430"></iframe>
+                <h1 id="苍穹外卖亮点记录"><a href="#苍穹外卖亮点记录" class="headerlink" title="苍穹外卖亮点记录"></a>苍穹外卖亮点记录</h1><h2 id="使用aop特性实现公共字段自动填充"><a href="#使用aop特性实现公共字段自动填充" class="headerlink" title="使用aop特性实现公共字段自动填充"></a>使用aop特性实现公共字段自动填充</h2><p>该切面通过<strong>Spring AOP</strong>与<strong>自定义注解@AutoFill的协同，在持久层（Mapper）执行前自动注入实体类的公共字段（如创建时间、更新时间、创建人、更新人），从而根治</strong>了业务代码中重复赋值的<strong>冗余</strong>与<strong>人为遗漏</strong>问题。它通过<strong>反射动态调用setter方法</strong>，将当前线程上下文中的用户ID与系统时间精准注入实体，实现了<strong>业务逻辑与公共字段填充的完全解耦</strong>，显著提升了代码的<strong>可维护性、一致性</strong>与<strong>安全性</strong>。</p>
+<h3 id="切面设计示例代码"><a href="#切面设计示例代码" class="headerlink" title="切面设计示例代码"></a>切面设计示例代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sky.aspect;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.sky.annotation.AutoFill;</span><br><span class="line"><span class="keyword">import</span> com.sky.constant.AutoFillConstant;</span><br><span class="line"><span class="keyword">import</span> com.sky.context.BaseContext;</span><br><span class="line"><span class="keyword">import</span> com.sky.enumeration.OperationType;</span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.JoinPoint;</span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.Signature;</span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.annotation.Aspect;</span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.annotation.Before;</span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.annotation.Pointcut;</span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.reflect.MethodSignature;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.time.LocalDateTime;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> ：mnifhy</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>：自定义切面，实现数据填充</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> ：2025/7/10 18:49</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AutoFillAspect</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 拦截需要数据填充的方法</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Pointcut(&quot;execution(* com.sky.mapper.*.*(..)) &amp;&amp; @annotation(com.sky.annotation.AutoFill)&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">autoFillPointCut</span><span class="params">()</span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//前置通知</span></span><br><span class="line">    <span class="meta">@Before(&quot;autoFillPointCut()&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">autoFill</span><span class="params">(JoinPoint joinPoint)</span>&#123;</span><br><span class="line">        log.info(<span class="string">&quot;开始进行公共字段自动填充...&quot;</span>);</span><br><span class="line">        <span class="comment">//获取到当前被拦截的方法上的数据库操作类型</span></span><br><span class="line">        <span class="type">MethodSignature</span> <span class="variable">signature</span> <span class="operator">=</span> (MethodSignature) joinPoint.getSignature();<span class="comment">//获取方法签名</span></span><br><span class="line">        <span class="type">AutoFill</span> <span class="variable">autoFill</span> <span class="operator">=</span> signature.getMethod().getAnnotation(AutoFill.class);<span class="comment">//获取方法上的注解对象</span></span><br><span class="line">        <span class="type">OperationType</span> <span class="variable">value</span> <span class="operator">=</span> autoFill.value();<span class="comment">//获取数据库操作类型</span></span><br><span class="line">        <span class="comment">//获取当前被拦截的方法的参数--实体对象</span></span><br><span class="line">        Object[] args = joinPoint.getArgs();</span><br><span class="line">        <span class="keyword">if</span> (args == <span class="literal">null</span> || args.length == <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">Object</span> <span class="variable">entity</span> <span class="operator">=</span> args[<span class="number">0</span>];</span><br><span class="line">        <span class="comment">//准备赋值的数据</span></span><br><span class="line">        <span class="type">LocalDateTime</span> <span class="variable">now</span> <span class="operator">=</span> LocalDateTime.now();</span><br><span class="line">        Long CurrentId= BaseContext.getCurrentId();</span><br><span class="line">        <span class="comment">//根据数据库操作类型，为对应的属性通过反射赋值</span></span><br><span class="line">        <span class="keyword">if</span> (value == OperationType.INSERT)&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">//为4个属性赋值</span></span><br><span class="line">                <span class="type">Method</span> <span class="variable">setCreateTime</span> <span class="operator">=</span> entity.getClass().getDeclaredMethod(AutoFillConstant.SET_CREATE_TIME, LocalDateTime.class);</span><br><span class="line">                <span class="type">Method</span> <span class="variable">setUpdateTime</span> <span class="operator">=</span> entity.getClass().getDeclaredMethod(AutoFillConstant.SET_UPDATE_TIME, LocalDateTime.class);</span><br><span class="line">                <span class="type">Method</span> <span class="variable">setCreateUser</span> <span class="operator">=</span> entity.getClass().getDeclaredMethod(AutoFillConstant.SET_CREATE_USER, Long.class);</span><br><span class="line">                <span class="type">Method</span> <span class="variable">setUpdateUser</span> <span class="operator">=</span> entity.getClass().getDeclaredMethod(AutoFillConstant.SET_UPDATE_USER, Long.class);</span><br><span class="line">                <span class="comment">//通过反射为对象赋值</span></span><br><span class="line">                setCreateTime.invoke(entity, LocalDateTime.now());</span><br><span class="line">                setUpdateTime.invoke(entity, LocalDateTime.now());</span><br><span class="line">                setCreateUser.invoke(entity, BaseContext.getCurrentId());</span><br><span class="line">                setUpdateUser.invoke(entity, BaseContext.getCurrentId());</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (value==OperationType.UPDATE) &#123;</span><br><span class="line">              <span class="comment">//为2个属性赋值</span></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">//为4个属性赋值</span></span><br><span class="line">                <span class="type">Method</span> <span class="variable">setUpdateTime</span> <span class="operator">=</span> entity.getClass().getDeclaredMethod(AutoFillConstant.SET_UPDATE_TIME, LocalDateTime.class);</span><br><span class="line">                <span class="type">Method</span> <span class="variable">setUpdateUser</span> <span class="operator">=</span> entity.getClass().getDeclaredMethod(AutoFillConstant.SET_UPDATE_USER, Long.class);</span><br><span class="line">                <span class="comment">//通过反射为对象赋值</span></span><br><span class="line">                setUpdateTime.invoke(entity, LocalDateTime.now());</span><br><span class="line">                setUpdateUser.invoke(entity, BaseContext.getCurrentId());</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<hr>
-<h3 id="St-Chroma"><a href="#St-Chroma" class="headerlink" title="St.Chroma"></a>St.Chroma</h3><p>首先，先行曲《St.Chroma》的专辑完整版令我非常惊喜，因为他有很强的层次感–这是tyler会做出来的歌，但它放在专辑Track1的位置说明了Tyler的想法，以Daniel的合唱和暴力的合成器开篇渲染整体歌曲氛围。开头母亲的话语直到我现在听还会感觉很爽.</p>
-<blockquote>
-<p>“You are the light<br>Its not on you Its in you<br>Don’t you ever in your motherfucking life,dim your life for nobody!”</p>
-</blockquote>
-<p>非常白的，带有一种母亲望子成龙的语气和想法，影响着孩子的成长。<br>不必过度为他人考虑从而使自己因此黯淡了原本的光芒<br>这种光芒不是外在的表现，是在内心中的</p>
-<p>在开场结束后迎来了chromakopia主题的开始，重复多次的chromakopia~<br>十几秒后就出现了类似窃窃私语的声音，还伴随着有规律且沉重的脚步声</p>
-<blockquote>
-<p>Calm down, sit still, that’s one mill’ for each wheel<br>冷静下来 坐好了 我的每辆车都要上百万美元<br>Top ten, big deal, how the fuck he do that?<br>打入前十名 一炮而红 他到底是怎么做到的？<br>What the nigga I look like? Get the fuck up out him way<br>我看起来像是什么人？别挡着他的路<br>Hawthorne is where I’m from, ‘nother planet where him stay<br>霍桑是我的故乡 另一个星球是他呆的地方<br>I take cash for that new Ford, I had guap since nineteen<br>我用现金买那辆全新的福特 我从十九岁起就盆满钵满<br>I popped out like a cha-ching, I think I’m a goddamn fiend<br>我像个叮当声一样突然出现 我觉得自己是个该死的恶魔<br>Really ballin’ in this bitch, I’m the hardest in this bitch<br>在这些人里我的技艺是最出色的 我是他们之中最厉害的<br>Give a fuck about no bark, I’m chasing dogs up in this bitch<br>不在乎任何吠叫 让我驱逐这些竞争对手<br>El Segundo felt like colosseum<br>埃尔塞贡多感觉就像斗兽场<br>P said I could do it too, and boy, did I believe him<br>Pharrell说我也能做到 男孩 我相信他<br>I built a path to freedom ‘cause them words that he said<br>我建立了一条通往自由的道路 因为他说过<br>“Give a fuck about traditions, stop impressing’ the dead,” ah<br>去他的传统，停止取悦死人<br>I’m gon’ make it out, promise I’m gon’ make it out<br>我要成功 我保证我会成功<br>Mama, I’m gon’ make it out, pussy, I’m gon’ make it out<br>妈妈 我要成功女孩我要成功<br>I ain’t never had a doubt inside me<br>我从未怀疑过自己<br>And if I ever told you that I did, I’m fucking’ lying’<br>如果我曾经告诉过你我怀疑过 那一定是谎言</p>
-</blockquote>
-<p>这段代表对未来的思考和对过去的总结，像是对自己说的，也更像是给别人的警告<br>我要颠覆传统，不再为过去的事情和伤痛而烦恼<br>这是对自己的保证和愿望<br><strong>“我从未想象自己一事无成的样子，因为我一直在奋斗”</strong></p>
-<blockquote>
-<p>Can you feel the light?<br>你能感觉到那一束光吗？<br>Can you feel the light (That fire) inside?<br>你能感觉到那一束光吗？<br>Can you feel that fire? (Can you feel it?)<br>你能感觉到内心的火焰吗？<br>Oh-oh-oh-oh, fire (Fire), fire (Oh)<br>内心的火焰<br>Can you feel the light (That fire) inside?<br>你能感觉到那一束光吗？<br>Can you feel that fire? (Can you feel it?)<br>你能感觉到内心的火焰吗？<br>Oh-oh-oh-oh, fire (Fire), fire (Oh)<br>内心的火焰</p>
-</blockquote>
-<p>整首歌甚至是全专最重磅的part，超级炸爽的吟唱搭配上Daniel的和声，使这首歌的层次达到一种很舒服的位置<br>这段和声真的有一种让我看到光芒的感觉，心里燃起了一道很温暖的火</p>
-<p>1:55-2:18<br>合成器接踵而至，幻视当初IGOR Theme的开场</p>
-<p>紧接着来到歌曲的最后一段verse</p>
-<blockquote>
-<p>Ok, I is just a box with a lighter thunder in me (Woo)<br>好吧 我是个蕴含着万钧雷霆的盒子<br>Gratitude sit under the hubris that’s on my sleeve<br>感激之情藏在我的傲慢之下<br>Momma said I’m mm-hmm, Splash said I was mm-hmm<br>妈妈说我能成事 Splash说我能成事<br>Blow shit up at home back in Chromakopia, mm-hmm<br>在 Chromakopia 的家中炸毁一切<br>I don’t (I don’t), like the (Like the), way that this is lookin’ (No)<br>我不喜欢这种样子<br>Mirror got me (Got me), thinkin’ about my bookend (I’m done)<br>镜子将我迷住 区分哪个才是真的自己<br>I just need this time for myself to figure me out-out<br>我只需要这段时间来自己想清楚<br>Do I keep the light on or do I gracefully bow out?<br>我是让心中的光芒继续闪耀 还是优雅地退出？</p>
-</blockquote>
-<blockquote>
-<p>Interlude<br>(Don’t you ever stop bein’ who you are and dimmin’ your light for none of these motherfuckers out here)</p>
-</blockquote>
-<p>在这段第二句中<br>Tyler显示了自己面具下的傲慢人格并非显露出来的那番具有攻击性，<br>面具主题是整个项目中的突出主题，而这个自由但缺乏自信的 Saint Chroma 与他的“内心之光”相映成趣，缺乏他需要的傲慢。</p>
-<p>泰勒在质疑是否值得继续他的艺术创作，用“光”来代表风头;<br>即，他应该继续留在聚光灯下表演（“Keep the Light On”），还是向观众鞠躬并结束演出（“优雅地鞠躬”）。<br>“聚光灯”的解释也与 Tyler 探索的持续关注和偏执狂的主题有关。<br>这里的 “光” 也可以是副歌中的同一个 “光”，代表灵感。泰勒在想他是否应该继续用他的才华激励下一代的音乐家和说唱歌手。</p>
-<p>后来，他妈妈的声音回答了他的问题：<br>你永远不要停止做你自己，为这里的这些混蛋都不要黯淡你的光芒</p>
-<p>可以看出，从<strong>《Call me if you get lost》</strong>的豪华版开始，Tyler就将歌词的重心放在对思想的解剖中<br>在<strong>《What A Day》和《Sorry Not Sorry》</strong>中有所体现,同类的社会性形象在人们心中显得是那么的Stereotype<br>自己像成为像Kendrick那般的有思想的黑人明星</p>
-<p>最后一段hook结束，整首歌的情绪迎来了释放，<strong>面具下的St.Chroma人格</strong>开始要展示自己了</p>
-<h3 id="Rah-Tah-Tah"><a href="#Rah-Tah-Tah" class="headerlink" title="Rah Tah Tah"></a>Rah Tah Tah</h3><p>连载中…</p>
-<h3 id="Noid"><a href="#Noid" class="headerlink" title="Noid"></a>Noid</h3><h3 id="Darling-I"><a href="#Darling-I" class="headerlink" title="Darling,I"></a>Darling,I</h3><h3 id="Hey-Jane"><a href="#Hey-Jane" class="headerlink" title="Hey Jane"></a>Hey Jane</h3><h3 id="I-killed-you"><a href="#I-killed-you" class="headerlink" title="I killed you"></a>I killed you</h3><h3 id="Judge-Judy"><a href="#Judge-Judy" class="headerlink" title="Judge Judy"></a>Judge Judy</h3><h3 id="Sticky"><a href="#Sticky" class="headerlink" title="Sticky"></a>Sticky</h3><h3 id="Take-You-Mask-Off"><a href="#Take-You-Mask-Off" class="headerlink" title="Take You Mask Off"></a>Take You Mask Off</h3><h3 id="Tomorrow"><a href="#Tomorrow" class="headerlink" title="Tomorrow"></a>Tomorrow</h3><h3 id="Thought-I-Was-Dead"><a href="#Thought-I-Was-Dead" class="headerlink" title="Thought I Was Dead"></a>Thought I Was Dead</h3><h3 id="Like-Him"><a href="#Like-Him" class="headerlink" title="Like Him"></a>Like Him</h3><h3 id="Balloon"><a href="#Balloon" class="headerlink" title="Balloon"></a>Balloon</h3><h3 id="Hope-You-Find-Your-Way-Home"><a href="#Hope-You-Find-Your-Way-Home" class="headerlink" title="Hope You Find Your Way Home"></a>Hope You Find Your Way Home</h3>
+<h3 id="注解设计示例代码"><a href="#注解设计示例代码" class="headerlink" title="注解设计示例代码"></a>注解设计示例代码</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">package com.sky.annotation;</span><br><span class="line"></span><br><span class="line">import com.sky.enumeration.OperationType;</span><br><span class="line"></span><br><span class="line">import java.lang.annotation.ElementType;</span><br><span class="line">import java.lang.annotation.Retention;</span><br><span class="line">import java.lang.annotation.RetentionPolicy;</span><br><span class="line">import java.lang.annotation.Target;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 自定义注解，用于标识需要自动填充的字段</span><br><span class="line"> */</span><br><span class="line">@Target(ElementType.METHOD)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">public @interface AutoFill &#123;</span><br><span class="line">    /**</span><br><span class="line">     * 填充数据的操作类型</span><br><span class="line">     * update insert</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    OperationType value();</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用示例代码（mapper-xml）"><a href="#使用示例代码（mapper-xml）" class="headerlink" title="使用示例代码（mapper&amp;&amp;xml）"></a>使用示例代码（mapper&amp;&amp;xml）</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//mapper 插入菜品数据</span></span><br><span class="line"><span class="meta">@AutoFill(value= OperationType.INSERT)</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">insert</span><span class="params">(Dish dish)</span>;</span><br><span class="line"><span class="comment">//xml</span></span><br><span class="line">  &lt;insert id=<span class="string">&quot;insert&quot;</span> useGeneratedKeys=<span class="string">&quot;true&quot;</span> keyProperty=<span class="string">&quot;id&quot;</span>&gt;</span><br><span class="line">        insert into <span class="title function_">dish</span> <span class="params">(name,category_id,price,status,image,description,create_time,update_time,create_user,update_user)</span></span><br><span class="line">        values (#&#123;name&#125;,#&#123;categoryId&#125;,#&#123;price&#125;,#&#123;status&#125;,#&#123;image&#125;,#&#123;description&#125;,#&#123;createTime&#125;,#&#123;updateTime&#125;,#&#123;createUser&#125;,#&#123;updateUser&#125;)</span><br><span class="line">    &lt;/insert&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="调用链路"><a href="#调用链路" class="headerlink" title="调用链路"></a>调用链路</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 1. 你调用了Mapper方法</span><br><span class="line">employeeMapper.insert(employee); </span><br><span class="line"></span><br><span class="line">// 2. Spring AOP代理拦截调用（JDK动态代理/CGLIB）</span><br><span class="line">//    ↓</span><br><span class="line">// 3. 代理内部：检查该方法是否匹配  **@Pointcut定义的表达式**  （execution + @annotation）</span><br><span class="line">//    ↓</span><br><span class="line">// 4. 如果匹配成功 → **执行 @Before 标注的 autoFill() 方法**</span><br><span class="line">//    ↓</span><br><span class="line">// 5. autoFill() 执行完毕 → **继续执行原始 Mapper 的 insert() 方法**</span><br></pre></td></tr></table></figure>
+
+<h3 id="核心实现思路分解"><a href="#核心实现思路分解" class="headerlink" title="核心实现思路分解"></a>核心实现思路分解</h3><p>这段代码是典型的 <strong>声明式AOP编程</strong> 模式，其设计哲学是 <strong>“约定优于配置”</strong> ，具体执行链路如下：</p>
+<h4 id="1-拦截机制：精准定位目标"><a href="#1-拦截机制：精准定位目标" class="headerlink" title="1. 拦截机制：精准定位目标"></a><strong>1. 拦截机制：精准定位目标</strong></h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Pointcut(&quot;execution(* com.sky.mapper.*.*(..)) &amp;&amp; @annotation(com.sky.annotation.AutoFill)&quot;)</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>切入点</strong>：锁定<code>com.sky.mapper</code>包下<strong>所有</strong>Mapper接口方法</li>
+<li><strong>增强过滤</strong>：仅对标记了<code>@AutoFill</code>注解的方法生效（双重保险，避免误拦截）</li>
+<li><strong>设计意图</strong>：将横切关注点（公共字段）与核心业务（SQL操作）彻底分离</li>
+</ul>
+<h4 id="2-上下文感知：获取操作指令"><a href="#2-上下文感知：获取操作指令" class="headerlink" title="2. 上下文感知：获取操作指令"></a><strong>2. 上下文感知：获取操作指令</strong></h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">MethodSignature</span> <span class="variable">signature</span> <span class="operator">=</span> (MethodSignature) joinPoint.getSignature();<span class="comment">//获取签名</span></span><br><span class="line"><span class="type">OperationType</span> <span class="variable">value</span> <span class="operator">=</span> signature.getMethod().getAnnotation(AutoFill.class).value();<span class="comment">//从签名中获取方法注解的操作类型</span></span><br><span class="line"><span class="comment">//注解使用实例</span></span><br><span class="line">    <span class="comment">// 插入菜品数据</span></span><br><span class="line">        <span class="meta">@AutoFill(value= OperationType.INSERT)</span></span><br><span class="line">        <span class="keyword">void</span> <span class="title function_">insert</span><span class="params">(Dish dish)</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>反射获取注解</strong>：动态读取方法上的<code>@AutoFill(INSERT)</code>或<code>@AutoFill(UPDATE)</code>元数据</li>
+<li><strong>策略模式雏形</strong>：根据<code>OperationType</code>枚举值决定后续填充逻辑的分支走向</li>
+</ul>
+<h4 id="3-实体定位：约定优于配置"><a href="#3-实体定位：约定优于配置" class="headerlink" title="3. 实体定位：约定优于配置"></a><strong>3. 实体定位：约定优于配置</strong></h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Object</span> <span class="variable">entity</span> <span class="operator">=</span> args[<span class="number">0</span>];</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>强约定</strong>：强制要求Mapper方法的<strong>第一个参数</strong>必须是实体对象（Entity&#x2F;POJO）</li>
+<li><strong>风险点</strong>：未对参数类型做校验，若首参非实体（如<code>Long id</code>）会抛出<code>NoSuchMethodException</code></li>
+</ul>
+<h4 id="4-数据准备：线程级全局上下文"><a href="#4-数据准备：线程级全局上下文" class="headerlink" title="4. 数据准备：线程级全局上下文"></a><strong>4. 数据准备：线程级全局上下文</strong></h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Long</span> <span class="variable">currentId</span> <span class="operator">=</span> BaseContext.getCurrentId(); <span class="comment">// 从ThreadLocal获取</span></span><br><span class="line"><span class="type">LocalDateTime</span> <span class="variable">now</span> <span class="operator">=</span> LocalDateTime.now();</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>用户溯源</strong>：通过<code>ThreadLocal</code>存储的当前登录用户ID，确保多线程环境下数据隔离</li>
+<li><strong>时间原子性</strong>：在方法入口统一获取时间，保证单次操作中所有字段时间戳<strong>绝对一致</strong></li>
+</ul>
+<h4 id="5-反射注入：硬编码setter名"><a href="#5-反射注入：硬编码setter名" class="headerlink" title="5. 反射注入：硬编码setter名"></a><strong>5. 反射注入：硬编码setter名</strong></h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以INSERT为例</span></span><br><span class="line"><span class="type">Method</span> <span class="variable">setCreateTime</span> <span class="operator">=</span> entity.getClass().getDeclaredMethod(AutoFillConstant.SET_CREATE_TIME, LocalDateTime.class);</span><br><span class="line">setCreateTime.invoke(entity, now);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>常量驱动</strong>：通过<code>AutoFillConstant</code>预定义setter方法名（如<code>&quot;setCreateTime&quot;</code>），避免硬编码字符串</li>
+<li><strong>性能权衡</strong>：每次调用都反射获取<code>Method</code>对象，存在轻微性能损耗（可通过缓存<code>Method</code>对象优化）</li>
+<li><strong>类型安全</strong>：<code>getDeclaredMethod</code>第二个参数显式指定参数类型，确保方法签名精确匹配</li>
+</ul>
+<h4 id="6-策略分支：INSERT-vs-UPDATE"><a href="#6-策略分支：INSERT-vs-UPDATE" class="headerlink" title="6. 策略分支：INSERT vs UPDATE"></a><strong>6. 策略分支：INSERT vs UPDATE</strong></h4><ul>
+<li><strong>INSERT操作</strong>：填充4个字段（创建&#x2F;更新人与时间），确保新纪录生命周期完整</li>
+<li><strong>UPDATE操作</strong>：仅填充2个字段（更新人与时间），避免误覆盖原始创建信息</li>
+<li><strong>防御性设计</strong>：<code>else</code>分支为空（建议补充日志或抛出异常，防止未知类型静默失败</li>
+</ul>
+
                 
             </div>
             <hr/>
@@ -566,7 +580,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://ifhy.online/2024/11/06/chromakopia-by-tyler-the.creator/">http://ifhy.online/2024/11/06/chromakopia-by-tyler-the.creator/</a>
+                    <a href="http://ifhy.online/2025/10/15/cang-qiong-wai-mai-liang-dian-ji-lu/">http://ifhy.online/2025/10/15/cang-qiong-wai-mai-liang-dian-ji-lu/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -604,8 +618,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Tyler/">
-                                    <span class="chip bg-color">Tyler</span>
+                                <a href="/tags/Learn/">
+                                    <span class="chip bg-color">Learn</span>
                                 </a>
                             
                         </div>
@@ -1038,16 +1052,17 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2025/10/14/wei-fu-wu-xue-xi-zong-jie/">
+                <a href="/2025/10/15/cang-qiong-wai-mai-liang-dian-ji-lu/">
                     <div class="card-image">
                         
-                        <img src="/medias/cover.jpg" class="responsive-img" alt="微服务学习笔记">
+                        <img src="/medias/cover.jpg" class="responsive-img" alt="苍穹外卖亮点记录">
                         
-                        <span class="card-title">微服务学习笔记</span>
+                        <span class="card-title">苍穹外卖亮点记录</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1057,9 +1072,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2025-10-14
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-10-15
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -1072,6 +1087,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -1090,30 +1106,30 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2024/11/06/ben-zhan-gai-yao/">
+                <a href="/2025/10/14/wei-fu-wu-xue-xi-zong-jie/">
                     <div class="card-image">
                         
-                        <img src="https://p1.music.126.net/up3v1txSyytIocZnS_bFZQ==/109951168977967996.jpg" class="responsive-img" alt="本站概要">
+                        <img src="/medias/cover.jpg" class="responsive-img" alt="微服务学习笔记">
                         
-                        <span class="card-title">本站概要</span>
+                        <span class="card-title">微服务学习笔记</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            我的学习笔记
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-11-06
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-10-14
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E6%88%91%E7%9A%84%E6%83%B3%E6%B3%95/" class="post-category">
-                                    我的想法
+                            <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    学习
                                 </a>
                             
                             
@@ -1123,8 +1139,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%83%B3%E6%B3%95/">
-                        <span class="chip bg-color">想法</span>
+                    <a href="/tags/Learn/">
+                        <span class="chip bg-color">Learn</span>
                     </a>
                     
                 </div>
