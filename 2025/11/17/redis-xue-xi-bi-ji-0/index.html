@@ -1,0 +1,1893 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="redis学习笔记, NightC">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>redis学习笔记 | NightC</title>
+    <link rel="icon" type="image/png" href="/igor.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+   <style>
+    body{
+       background-image: url(https://cdn.jsdelivr.net/gh/Tokisaki-Galaxy/res/site/medias/background.jpg);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="https://p2.music.126.net/UVGWOdd30v2YqDQ9wLJo-Q==/109951166543421644.jpg" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">NightC</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="https://p2.music.126.net/UVGWOdd30v2YqDQ9wLJo-Q==/109951166543421644.jpg" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">NightC</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/coverMYSQL.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">redis学习笔记</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Learn/">
+                                <span class="chip bg-color">Learn</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                学习
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-11-17
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2025-11-17
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    9.6k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    35 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="Redis学习笔记"><a href="#Redis学习笔记" class="headerlink" title="Redis学习笔记"></a>Redis学习笔记</h2><h2 id="一-redis安装"><a href="#一-redis安装" class="headerlink" title="一.redis安装"></a>一.redis安装</h2><p>在linux系统中安装redis，需要GCC-C++环境支持</p>
+<p>直接从官网中下载redis.tar.gz包，解压在opt文件夹中</p>
+<p>执行make &amp;&amp; make install  命令</p>
+<p>然后将配置文件备份到其他文件夹中，创建一份自己的文件夹用于存放自定义文件和工程</p>
+<p>输入 redis-server redis.conf 启动服务端</p>
+<p>输入 redis-cli -a 密码 -p 端口 客户端连接服务端</p>
+<h2 id="二-redis十大数据类型"><a href="#二-redis十大数据类型" class="headerlink" title="二.redis十大数据类型"></a>二.redis十大数据类型</h2><p><img src="Y:\ZBlog\source_posts\assets\image-20250805112358260.png" alt="image-20250805112358260"></p>
+<p><img src="Y:\ZBlog\source_posts\assets\image-20250805115438617.png" alt="image-20250805115438617"></p>
+<p><img src="Y:\ZBlog\source_posts\assets\image-20250805115448330.png" alt="image-20250805115448330"></p>
+<p><img src="Y:\ZBlog\source_posts\assets\image-20250805115508453.png" alt="image-20250805115508453"></p>
+<p><img src="Y:\ZBlog\source_posts\assets\image-20250805115518089.png" alt="image-20250805115518089"></p>
+<p><img src="Y:\ZBlog\source_posts\assets\image-20250805115542063.png" alt="image-20250805115542063"></p>
+<p><img src="Y:\ZBlog\source_posts\assets\image-20250805115704649.png" alt="image-20250805115704649"></p>
+<p><img src="Y:\ZBlog\source_posts\assets\image-20250805115728429.png" alt="image-20250805115728429"></p>
+<p><img src="Y:\ZBlog\source_posts\assets\image-20250805115830848.png" alt="image-20250805115830848"></p>
+<p><img src="Y:\ZBlog\source_posts\assets\image-20250805115900583.png" alt="image-20250805115900583"></p>
+<p><img src="Y:\ZBlog\source_posts\assets\image-20250805115948307.png" alt="image-20250805115948307"></p>
+<h3 id="KEY操作命令"><a href="#KEY操作命令" class="headerlink" title="KEY操作命令"></a>KEY操作命令</h3><p><img src="Y:\ZBlog\source_posts\assets\image-20250805120802652.png" alt="image-20250805120802652"></p>
+<h3 id="Strings（字符串）"><a href="#Strings（字符串）" class="headerlink" title="Strings（字符串）"></a>Strings（字符串）</h3><h5 id="set-key-value"><a href="#set-key-value" class="headerlink" title="set key value"></a>set key value</h5><h3 id="HashMap（哈希表）"><a href="#HashMap（哈希表）" class="headerlink" title="HashMap（哈希表）"></a>HashMap（哈希表）</h3><h5 id="hset-key-field-value"><a href="#hset-key-field-value" class="headerlink" title="hset key field value"></a>hset key field value</h5><h3 id="List（列表）"><a href="#List（列表）" class="headerlink" title="List（列表）"></a>List（列表）</h3><h5 id="Lpush"><a href="#Lpush" class="headerlink" title="Lpush"></a>Lpush</h5><h3 id="Set（无序集合）"><a href="#Set（无序集合）" class="headerlink" title="Set（无序集合）"></a>Set（无序集合）</h3><h5 id="Sadd"><a href="#Sadd" class="headerlink" title="Sadd"></a>Sadd</h5><h3 id="Sorted-Set（有序集合）"><a href="#Sorted-Set（有序集合）" class="headerlink" title="Sorted Set（有序集合）"></a>Sorted Set（有序集合）</h3><h5 id="zadd"><a href="#zadd" class="headerlink" title="zadd"></a>zadd</h5><h3 id="HyperLogLog（基数统计）"><a href="#HyperLogLog（基数统计）" class="headerlink" title="HyperLogLog（基数统计）"></a>HyperLogLog（基数统计）</h3><h5 id="pfadd"><a href="#pfadd" class="headerlink" title="pfadd"></a>pfadd</h5><h3 id="GEO（地理位置）"><a href="#GEO（地理位置）" class="headerlink" title="GEO（地理位置）"></a>GEO（地理位置）</h3><h5 id="geoadd"><a href="#geoadd" class="headerlink" title="geoadd"></a>geoadd</h5><h3 id="Stream（消息队列）"><a href="#Stream（消息队列）" class="headerlink" title="Stream（消息队列）"></a>Stream（消息队列）</h3><h3 id="Bitmap（位图-二进制字符串）"><a href="#Bitmap（位图-二进制字符串）" class="headerlink" title="Bitmap（位图 二进制字符串）"></a>Bitmap（位图 二进制字符串）</h3><h5 id="setbit"><a href="#setbit" class="headerlink" title="setbit"></a>setbit</h5><h3 id="BitField（位域-可以将字符串转成01数组并直接操作数组中的元素）"><a href="#BitField（位域-可以将字符串转成01数组并直接操作数组中的元素）" class="headerlink" title="BitField（位域 可以将字符串转成01数组并直接操作数组中的元素）"></a>BitField（位域 可以将字符串转成01数组并直接操作数组中的元素）</h3><h2 id="三-redis持久化"><a href="#三-redis持久化" class="headerlink" title="三.redis持久化"></a>三.redis持久化</h2><h4 id="RDB-redis-database"><a href="#RDB-redis-database" class="headerlink" title="RDB(redis database)"></a>RDB(redis database)</h4><h5 id="修改rdb保存机制"><a href="#修改rdb保存机制" class="headerlink" title="修改rdb保存机制"></a>修改rdb保存机制</h5><p>（rdb属于自动开启）</p>
+<p>修改config文件中的 （save 秒 命令数）参数</p>
+<p>修改dump文件的保存路径 （dir 路径）</p>
+<p>修改dump文件名 （dbfilename 名字）</p>
+<h5 id="手动触发rdb保存"><a href="#手动触发rdb保存" class="headerlink" title="手动触发rdb保存"></a>手动触发rdb保存</h5><p>save命令和bgsave命令</p>
+<p>save命令会造成此服务器阻塞直到rdb文件备份完成，在此其中无法进行其他io操作</p>
+<p>bgsave属于主进程重新打开一个专属于rdbsave操作的线程用于操作io，不会阻塞</p>
+<p>一般使用bgsave进行手动保存</p>
+<h5 id="rdb的优点"><a href="#rdb的优点" class="headerlink" title="rdb的优点"></a>rdb的优点</h5><p><img src="Y:\ZBlog\source_posts\assets\image-20250808222000714.png" alt="image-20250808222000714"></p>
+<h5 id="rdb的缺点"><a href="#rdb的缺点" class="headerlink" title="rdb的缺点"></a>rdb的缺点</h5><p><img src="Y:\ZBlog\source_posts\assets\image-20250808222036641.png" alt="image-20250808222036641"></p>
+<h5 id="rdb会触发快照的时机"><a href="#rdb会触发快照的时机" class="headerlink" title="rdb会触发快照的时机"></a>rdb会触发快照的时机</h5><p><img src="Y:\ZBlog\source_posts\assets\image-20250808222124374.png" alt="image-20250808222124374"></p>
+<h5 id="禁用快照"><a href="#禁用快照" class="headerlink" title="禁用快照"></a>禁用快照</h5><p><img src="Y:\ZBlog\source_posts\assets\image-20250808222159085.png" alt="image-20250808222159085"></p>
+<h5 id="rdb配置项"><a href="#rdb配置项" class="headerlink" title="rdb配置项"></a>rdb配置项</h5><p><img src="Y:\ZBlog\source_posts\assets\image-20250808222231332.png" alt="image-20250808222231332"></p>
+<h4 id="AOF-append-only-file"><a href="#AOF-append-only-file" class="headerlink" title="AOF(append only file)"></a>AOF(append only file)</h4><h5 id="开启aof"><a href="#开启aof" class="headerlink" title="开启aof"></a>开启aof</h5><p>在配置文件中的appendonly 将no改为yes</p>
+<h5 id="aof配置项"><a href="#aof配置项" class="headerlink" title="aof配置项"></a>aof配置项</h5><p>在6前只有一个aof文件，6后存在3个文件</p>
+<h6 id="基本-base-rdb"><a href="#基本-base-rdb" class="headerlink" title="基本 base.rdb"></a>基本 base.rdb</h6><h6 id="增量-incr-aof"><a href="#增量-incr-aof" class="headerlink" title="增量 incr.aof"></a>增量 incr.aof</h6><h6 id="清单-aof-manifest"><a href="#清单-aof-manifest" class="headerlink" title="清单 aof.manifest"></a>清单 aof.manifest</h6><p>当redis启动时，首先读取manifest文件，以了解当前的文件序列，然后加载base文件和后续的incr文件，从而快速恢复最新状态</p>
+<p><img src="Y:\ZBlog\source_posts\assets\image-20250808212326260.png" alt="image-20250808212326260"></p>
+<h5 id="重写概念"><a href="#重写概念" class="headerlink" title="重写概念	"></a>重写概念	<img src="Y:\ZBlog\source_posts\assets\image-20250808215528577.png" alt="image-20250808215528577"></h5><h6 id="重写aof是将增量文件中的指令以最小操作集追加到base文件中"><a href="#重写aof是将增量文件中的指令以最小操作集追加到base文件中" class="headerlink" title="重写aof是将增量文件中的指令以最小操作集追加到base文件中"></a>重写aof是将增量文件中的指令以最小操作集追加到base文件中</h6><h5 id="重写机制"><a href="#重写机制" class="headerlink" title="重写机制"></a>重写机制</h5><p>随着时间推移，AOF文件会变得庞大，可能包含冗余命令。Redis提供了AOF重写机制，通过创建一个新的AOF文件来移除冗余命令，从而减小文件大小并加快恢复速度。</p>
+<h6 id="自动重写"><a href="#自动重写" class="headerlink" title="自动重写"></a>自动重写</h6><p>配置峰值：默认配置是当AOF文件大小是上次rewrite后大小的一倍且文件大于64MB时触发</p>
+<p><img src="Y:\ZBlog\source_posts\assets\image-20250808215426967.png" alt="image-20250808215426967"></p>
+<h6 id="手动重启"><a href="#手动重启" class="headerlink" title="手动重启"></a>手动重启</h6><p>redis客户端中使用 bgrewriteaof 命令重写aof文件</p>
+<h5 id="重写原理"><a href="#重写原理" class="headerlink" title="重写原理"></a>重写原理</h5><p><img src="Y:\ZBlog\source_posts\assets\image-20250808220903871.png" alt="image-20250808220903871"></p>
+<h5 id="AOF总结"><a href="#AOF总结" class="headerlink" title="AOF总结"></a>AOF总结</h5><p><img src="Y:\ZBlog\source_posts\assets\image-20250808221110179.png" alt="image-20250808221110179"></p>
+<h3 id="四-事务"><a href="#四-事务" class="headerlink" title="四.事务"></a>四.事务</h3><ul>
+<li><p><strong>事务中的所有命令会被序列化并依次执行</strong>。在执行 Redis 事务过程中，其他客户端的请求永远不会在事务执行中途被处理。这确保了命令作为单个独立操作执行。</p>
+</li>
+<li><p><strong><a target="_blank" rel="noopener" href="https://redis.com.cn/commands/exec.html">EXEC</a> 命令会触发事务中所有命令的执行</strong>。如果客户端在调用 <a target="_blank" rel="noopener" href="https://redis.com.cn/commands/exec.html">EXEC</a> 命令前与服务器的连接中断，则不会执行任何操作；如果调用了 <a target="_blank" rel="noopener" href="https://redis.com.cn/commands/exec.html">EXEC</a> 命令，则所有操作都会被执行。当使用 <a target="_blank" rel="noopener" href="https://redis.com.cn/topics/persistence#append-only-file">append-only file（AOF）</a> 时，Redis 会通过单个 <code>write(2)</code> 系统调用将事务写入磁盘。然而，如果 Redis 服务器因系统管理员强制关闭或崩溃而提前终止，则可能只记录部分操作。Redis 会在重启时检测到这种情况，并以错误退出。使用 <code>redis-check-aof</code> 工具可以修复 AOF 文件，移除部分事务，使服务器能够重新启动。</p>
+<p>使用<strong>multi</strong>命令可以进入事务状态，在事务中编写的指令会被添加进队列中用于执行时后统一处理</p>
+<p>使用<strong>exec</strong>命令执行事务</p>
+<p>使用<strong>discard</strong>命令放弃事务的执行，释放队列</p>
+<p>但当事务中的命令出现指令格式错误会直接使得整个事务失败，<strong>不会作出修改</strong></p>
+<p>出现逻辑错误时只会放弃错误的命令，<strong>正确的命令会执行</strong></p>
+<p>使用<strong>watch</strong>命令可以监控变量，若此变量在事物的状态中被其他客户端进行修改的话，事务中的所有对此变量的set不会生效</p>
+<p>使用<strong>unwatch</strong>命令可以放弃对变量的监控，即使在事务中变量被其他客户端修改，事务的修改也会生效</p>
+<p><strong>redis不保证原子性</strong></p>
+</li>
+</ul>
+<h3 id="五-管道"><a href="#五-管道" class="headerlink" title="五.管道"></a>五.管道</h3><p>将linux中的查询结果作为批处理命令进入redis中</p>
+<p>命令格式为cat xxx.txt | redis-cli –pipe</p>
+<p>命令并非合并执行，只是一条一条的执行</p>
+<p>出现错误的命令不会影响其他命令的执行</p>
+<p>管道的存在是为了减少客户端和服务器相互相应产生的时间</p>
+<h3 id="六-发布订阅"><a href="#六-发布订阅" class="headerlink" title="六.发布订阅"></a>六.发布订阅</h3><p><a target="_blank" rel="noopener" href="https://redis.com.cn/commands/subscribe">SUBSCRIBE</a>, <a target="_blank" rel="noopener" href="https://redis.com.cn/commands/unsubscribe">UNSUBSCRIBE</a> 和 <a target="_blank" rel="noopener" href="https://redis.com.cn/commands/publish">PUBLISH</a> 实现了 <a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Publish/subscribe">发布&#x2F;订阅消息范例</a>，发送者 (publishers) 不直接向特定的接收者发送消息 (subscribers)，而是发布消息到频道(channel)，不关心有没有订阅者。订阅者订阅关注一个或多个频道(channel)，并且只接收他关注的消息，不管发布者是不是存在。发布者和订阅者的解耦提供了更大的伸缩性、更动态的网络拓扑。</p>
+<p><img src="Y:\ZBlog\source_posts\assets\image-20250811231336614.png" alt="image-20250811231336614"></p>
+<p>如果一个频道发布消息但此频道未被订阅，则此消息会消失</p>
+<h3 id="七-复制"><a href="#七-复制" class="headerlink" title="七.复制"></a>七.复制</h3><h6 id="官网介绍"><a href="#官网介绍" class="headerlink" title="官网介绍"></a>官网介绍</h6><p> <a target="_blank" rel="noopener" href="https://redis.io/docs/management/replication/">https://redis.io/docs/management/replication/</a></p>
+<p>就是主从复制，master以写为主，Slave以读为主</p>
+<p>当master数据变化的时候，自动将新的数据异步同步到其它slave数据库</p>
+<h6 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h6><p>读写分离 容灾恢复 数据备份 水平扩容 支撑高并发</p>
+<h6 id="使用-注意点"><a href="#使用-注意点" class="headerlink" title="使用 注意点"></a>使用 注意点</h6><p>配从(库)不配主(库)<br>Master如果配置了requirepass参数，需要密码登陆，那么Slave就要配置masterauth来设置校验密码，<br>否则Master会拒绝Slave的访问请求</p>
+<h6 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h6><p>1、<strong>info replication</strong>：</p>
+<p>可以查看复制节点的主从关系和配置信息</p>
+<p>2、<strong>replicaof 主库IP 主库端口</strong>:</p>
+<p>设置从节点的主节点</p>
+<p>一般写入进redis.conf配置文件内</p>
+<p>3、<strong>slaveof 主库IP 主库端口</strong>:</p>
+<p>每次与master断开之后，都需要重新连接，除非你配置进redis.conf文件</p>
+<p>在运行期间修改slave节点的信息，如果该数据库已经是某个主数据库的从数据库，那么会停上和原主数据库的同步关系转而和新的主数据库同步，重新拜码头</p>
+<p>此命令时临时性的，重新运行后会延续配置文件中的主从关系</p>
+<p>4、<strong>slaveof no one</strong>：</p>
+<p>使当前数据库停止与其他数据库的同步，转成主数据库，自立为王</p>
+<h6 id="修改配置文件细节"><a href="#修改配置文件细节" class="headerlink" title="修改配置文件细节"></a>修改配置文件细节</h6><p>1、开启后台启动daemonize yes</p>
+<p>2、注释绑定IP bind 127.0.0.1</p>
+<p>3、关闭保护模式 protected-mode no</p>
+<p>4、指定端口 port <port></p>
+<p>5、指定当前工作目录 dir <path></p>
+<p>6、pid文件名字，pidfile <path></p>
+<p>7、日志文件名称 logfile <path></p>
+<p>8、本机访问密码 requirepass <password></p>
+<p>9、rdb文件名称 dbfilename <filename></p>
+<p>10、aof文件名称 appendfilename <filename></p>
+<p>需启用aof: appendonly yes</p>
+<p>可选步骤，默认为 appendonly.aof</p>
+<p>11、从机访问主机的通行密码masterauth，从机必须配置</p>
+<h6 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a><strong>常见问题</strong></h6><p><strong>1.从机不可进行写命令，只拥有读取数据的权力</strong></p>
+<p><strong>2、从机切入点问题</strong></p>
+<p><strong>slave是从头开始复制还是从切入点开始复制?</strong></p>
+<p><strong>master启动，写到k3</strong></p>
+<p><strong>slave1跟着master同时启动，跟着写到k3</strong></p>
+<p><strong>slave2写到k3后才启动，那之前的是否也可以复制？</strong></p>
+<p><strong>答： 是，首次一锅端，后续跟随，master写，slave跟</strong></p>
+<p><strong>3、主机shutdown后，从机会上位吗？</strong></p>
+<p><strong>答：不会，从机不动，原地待命，从机数据可以正常使用；等待主机重启动归来</strong></p>
+<p><strong>4、主机shutdown，重启后主从关系还在吗？从机还能否顺利复制？</strong></p>
+<p><strong>答： 主从关系还在，从机仍可以顺利复制</strong></p>
+<p><strong>5、某台从机shutdown后，master继续写入，从机重启后还能读取新写入的内容吗？</strong></p>
+<p><strong>答：可以，同问题2</strong></p>
+<h6 id="复制原理和工作流程"><a href="#复制原理和工作流程" class="headerlink" title="复制原理和工作流程"></a>复制原理和工作流程</h6><p><strong>1、slave启动，同步初请</strong></p>
+<p><strong>slave启动成功连接到master后会发送一个sync命令</strong></p>
+<p><strong>slave首次全新连接master,一次完全同步（全量复制）将被自动执行，slave自身原有数据会被master数据覆盖清除</strong></p>
+<p><strong>2、首次连接，全量复制</strong></p>
+<p><strong>naster节点收到sync命令后会开始在后台保存快照（即RDB特久化，主从复制时会触发RDB),同时收集所有接收到的用于修改数据集命令缓存起来，master节点执行RDB持久化完后，master将rdb快照文件和所有缓存的命令发送到所有slave,以完成一次完全同步</strong></p>
+<p><strong>3、心跳持续，保持通信</strong></p>
+<p><strong>可在配置文件修改ping包的周期，repl-ping-replica-period <second></strong></p>
+<p><strong>master发出PING包的周期，默认是10秒</strong></p>
+<p><strong>4、进入平稳，增量复制</strong></p>
+<p><strong>Master继续将新的所有收集到的修改命令自动依次传给slave,完成同步</strong></p>
+<p><strong>5、从机下线，重连续传</strong></p>
+<p><strong>master会检查backlog里面的offset,master和slave都会保存一个复制的offseti还有一个masterId,offset是保存在backlog中的。Master只会把已经复制的offset后面的数据复制给Slave,类似断点续传</strong></p>
+<h6 id="复制缺点"><a href="#复制缺点" class="headerlink" title="复制缺点"></a>复制缺点</h6><p><strong>1、复制延时，信号衰减</strong></p>
+<p><strong>由于所有的写操作都是先在Master上操作，然后同步更新到Slave上，所以从Master同步到Slave机器有一定的延迟，当系统很繁忙的时候，延迟问题会更加严重，Slave机器数量的增加也会使这个问题更加严重。</strong></p>
+<p><strong>2、Masetr宕机后从机不能上位为新的Master</strong></p>
+<p><strong>默认情况下，不会在slave节点中自动重选一个master，需要进行人工干预</strong>。</p>
+<h3 id="八-哨兵"><a href="#八-哨兵" class="headerlink" title="八.哨兵"></a>八.哨兵</h3><h5 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h5><p>吹哨人巡查监控后台master主机是否发生故障，如果发生了故障根据投票数自动将一个从库转换成新主库，继续对外服务</p>
+<h5 id="作用-1"><a href="#作用-1" class="headerlink" title="作用"></a>作用</h5><p>俗称：无人值守运维</p>
+<p>1.监控redis运行状态，包括master和slave</p>
+<p>2.当master down机，能够自动的将master切换成新的master</p>
+<h5 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a>主要功能</h5><p>1.主从监控</p>
+<p>监控主从redis库运行是否正常</p>
+<p>2.故障转移（容灾修复）</p>
+<p>如果master异常，则会进行主从切换，将其中一个slave转换成新master</p>
+<p>3.消息通知</p>
+<p>哨兵可以将故障转移的结果发送给客户端</p>
+<p>4.配置中心</p>
+<p>客户端通过连接哨兵来获得当前redis服务的主节点地址</p>
+<h5 id="实战演练"><a href="#实战演练" class="headerlink" title="实战演练"></a>实战演练</h5><p>架构说明：三个哨兵+一主二从</p>
+<p>哨兵负责监控和维护集群，不存放数据，只是吹哨人</p>
+<p>一主二从用于数据读取和存放</p>
+<h5 id="案例步骤"><a href="#案例步骤" class="headerlink" title="案例步骤"></a>案例步骤</h5><p>1.在自定义目录下新建或者拷贝sentinel.conf文件，文件名称不可修改</p>
+<p>2.修改哨兵配置文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"># sentinel26379.conf</span><br><span class="line"></span><br><span class="line">bind 0.0.0.0 #绑定ip</span><br><span class="line">daemonize yes #日志</span><br><span class="line">protected-mode no #保护模式</span><br><span class="line">port 26379 #端口</span><br><span class="line">logfile &quot;/my-redis7/sentinel26379.log&quot; #日志文件</span><br><span class="line">pidfile /var/run/redis-sentinel26379.pid #进程文件</span><br><span class="line">dir /my-redis7 #工作目录</span><br><span class="line">sentinel monitor mymaster 192.168.10.66 6379 2 #哨兵配置命令</span><br><span class="line">sentinel auth-pass mymaster shiguang #密码</span><br><span class="line"></span><br><span class="line">_______________________________________________</span><br><span class="line">一般情况下，修改端口，日志，进程名称</span><br><span class="line">sentinel monitor &lt;master名称&gt; &lt;masterip&gt; &lt;master端口&gt; &lt;需要几个哨兵投票 quorum 也叫仲裁&gt;</span><br><span class="line">仲裁是需要就主服务器无法访问这一事实达成一致的哨兵数量，以便真正将主服务器标记为失败，并在可能的情况下最终启动故障转移过程。</span><br><span class="line">但是，仲裁仅用于检测故障。为了实际执行故障转移，需要当选其中一个哨兵作为故障转移的领导者，并获得继续的授权。这只有在大多数 Sentinel 进程的投票下才会发生。</span><br><span class="line">因此，例如，如果您有 5 个 Sentinel 进程，并且给定的仲裁 master 设置为 2，则会发生以下情况：</span><br><span class="line"></span><br><span class="line">如果两个 Sentinel 同时同意主服务器无法访问，则两个 Sentinel 中的一个将尝试启动故障转移。</span><br><span class="line">如果总共有至少三个 Sentinel 可访问，则故障转移将获得授权并实际启动。</span><br><span class="line">实际上，这意味着在发生故障期间，如果大多数 Sentinel 进程无法通信（即少数分区中没有故障转移），则 Sentinel 永远不会启动故障转移。</span><br></pre></td></tr></table></figure>
+
+<p>3.配置一主二从关系</p>
+<p>66机器上新建redis6379.conf配置文件并设置masterauth项访问密码为jy1234588，不然后续可能报错master_link_status:down，因为Master下线变为从机后需要访问新的Master</p>
+<p>88机器上新建redis_6378.conf配置文件，设置好replicaof <masterip> <masterport></p>
+<p>99机器上新建redis_6380.conf配置文件，设置好replicaof <masterip> <masterport></p>
+<p>4.分别启动三台服务并测试主从复制是否正常</p>
+<p>5、分别启动三个哨兵</p>
+<p>redis-sentinel &#x2F;path&#x2F;to&#x2F;sentinelxxxxx.conf</p>
+<p>6、手动shutdown将6379下线，模拟master宕机</p>
+<h5 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h5><p>1、两台从机数据是否正常?</p>
+<p>数据正常但可能会出现两个问题</p>
+<p>一.Server closed the connection</p>
+<p>二.broken pipe</p>
+<p>pipe是管道的意思，管道里面是数据流，通常是从文件或网络套接字读取的数据。当该管道从另一端突然关闭时，会发生数据突然中断，即是broken，对于socket来说，可能是网络被拔出或另一端的进程崩溃</p>
+<p>解决问题</p>
+<p>当该异常产生的时候，对于服务端来说，并没有多少影响。因为可能是某个客户端突然中止了进程导致了该错误</p>
+<p>2、是否会从剩下两台机器中选出新的master?</p>
+<p>会投票产生新的master</p>
+<p>3、之前的master重新恢复后，谁是老大，会不会master冲突？</p>
+<p>之前的Master恢复后继续延用新选出的Master</p>
+<h5 id="配置文件变化"><a href="#配置文件变化" class="headerlink" title="配置文件变化"></a>配置文件变化</h5><p>配置文件的内容，在运行期间会被sentinel动态进行更改</p>
+<p>Master、Slave切换后，Master、Slave的redis.conf、和sentinel.conf的内容都会发生改变</p>
+<p>Master redis.conf中会多一行replicaof的配置</p>
+<p>sentinel.conf的监控目标会随之调换</p>
+<h5 id="其他说明"><a href="#其他说明" class="headerlink" title="其他说明"></a>其他说明</h5><p>1、生产都是不同机房不同服务器，很少出现3个哨兵全挂掉的情况</p>
+<p>2、可以同时监控多个master,一行一个</p>
+<h5 id="哨兵运行流程和选举原理"><a href="#哨兵运行流程和选举原理" class="headerlink" title="哨兵运行流程和选举原理"></a>哨兵运行流程和选举原理</h5><p><img src="Y:\ZBlog\source_posts\assets\image-20250815155314702.png" alt="image-20250815155314702"></p>
+<p><img src="Y:\ZBlog\source_posts\assets\image-20250815155328351.png" alt="image-20250815155328351"></p>
+<p><img src="Y:\ZBlog\source_posts\assets\image-20250815155412006.png" alt="image-20250815155412006"></p>
+<p><img src="Y:\ZBlog\source_posts\assets\image-20250815155454716.png" alt="image-20250815155454716"></p>
+<p>不保证数据零丢失是因为原主机下线后哨兵执行容灾修复是需要时间的，中间有可能会有其他请求进入，执行</p>
+<h3 id="九-集群"><a href="#九-集群" class="headerlink" title="九.集群"></a>九.集群</h3><h5 id="介绍-1"><a href="#介绍-1" class="headerlink" title="介绍"></a>介绍</h5><p><strong>由于数据量过大</strong>，单个Master复制集难以承担，因此需要对多个复制集进行集群，形成水平扩展每个复制集只负责存储整个<strong>数据集的一部分</strong>，这就是Redis的集群，其作用是提供在多个Redis节点间共享数据的程序集。</p>
+<p>Redis集群是一个提供在多个Redis节点间共享数据的程序集，Redis集群可以支持多个Master</p>
+<h5 id="作用-2"><a href="#作用-2" class="headerlink" title="作用"></a>作用</h5><p>1、Redis集群支持多个Master,每个Master又可以挂载多个Slave</p>
+<p> 读写分离<br> 支持数据的高可用<br> 支持海量数据的读写存储操作</p>
+<ul>
+<li>自动切分数据集到多个节点上。 </li>
+<li>当部分节点故障或不可达的情况下继续提供服务。</li>
+</ul>
+<p>2、由于Cluster自带Sentinel的故障转移机制，内置了高可用的支持，无需再去使用哨兵功能</p>
+<p>3、客户端与Rdis的节点连接，不再需要连接集群中所有的节点，只需要任意连接集群中的一个可用节点即可</p>
+<p>4、槽位slot负责分配到各个物理服务节点，由对应的集群来负责维护节点、插槽和数据之间的关系</p>
+<h5 id="集群算法：分片-槽位（slot）"><a href="#集群算法：分片-槽位（slot）" class="headerlink" title="集群算法：分片-槽位（slot）"></a>集群算法：分片-槽位（slot）</h5><p>在 Redis 集群中，<strong>分片（Sharding）</strong> 和<strong>槽位（Slot）</strong> 是实现数据分布式存储和负载均衡的核心机制。它们共同解决了单节点 Redis 在存储容量、并发能力和可用性上的瓶颈，让 Redis 能够通过多节点集群横向扩展。</p>
+<h5 id="分片（Sharding）：数据的分布式拆分"><a href="#分片（Sharding）：数据的分布式拆分" class="headerlink" title="分片（Sharding）：数据的分布式拆分"></a>分片（Sharding）：数据的分布式拆分</h5><p><strong>分片</strong>是指将 Redis 中的数据按照一定规则拆分到多个节点（服务器）的过程。每个节点只存储部分数据，所有节点共同构成一个完整的数据集。</p>
+<h6 id="为什么需要分片？"><a href="#为什么需要分片？" class="headerlink" title="为什么需要分片？"></a><strong>为什么需要分片？</strong></h6><ul>
+<li><p><strong>突破单节点限制</strong>：单节点的内存、CPU、网络带宽都是有限的。通过分片，集群的总存储容量 &#x3D; 所有节点的存储容量之和，并发处理能力也随节点数量增加而提升。</p>
+</li>
+<li><p><strong>负载均衡</strong>：数据分散到多个节点后，读写请求会被分配到不同节点，避免单节点压力过大。</p>
+</li>
+<li><p><strong>高可用性</strong>：单节点故障时，只需处理该节点负责的数据，不会导致整个集群不可用（前提是有副本节点）。</p>
+</li>
+</ul>
+<h5 id="槽位（Slot）：分片的具体实现载体"><a href="#槽位（Slot）：分片的具体实现载体" class="headerlink" title="槽位（Slot）：分片的具体实现载体"></a>槽位（Slot）：分片的具体实现载体</h5><p>Redis 集群通过<strong>槽位</strong>来实现分片，槽位是数据分片的 “最小单位”。所有数据的分配、迁移和管理都围绕槽位进行。</p>
+<h6 id="槽位的基本属性"><a href="#槽位的基本属性" class="headerlink" title="槽位的基本属性"></a>槽位的基本属性</h6><ul>
+<li><p><strong>总数量固定</strong>：Redis 集群共有<strong>16384 个槽位</strong>（编号 0~16383）。这个数量是 Redis 设计时确定的，既足够支持中小型集群的负载均衡，又能保证节点间传播槽位信息时的效率（槽位信息体积小，减少网络开销）。</p>
+</li>
+<li><p><strong>每个槽位对应部分数据</strong>：集群中的所有键（Key）都会被映射到某个槽位，每个槽位负责存储映射到它的所有键值对。</p>
+</li>
+<li><p>Redis没有使用一致性hash，而是引入了 <strong>hash</strong>槽 概念，<br>Redis一共有16384个哈希槽，每个插入的key通过 CRC16校验 后通过对16384取模<br>来决定放入哪个hash槽，而每个master节点负责一定量的hash槽。</p>
+</li>
+</ul>
+<h6 id="键（Key）到槽位的映射规则"><a href="#键（Key）到槽位的映射规则" class="headerlink" title="键（Key）到槽位的映射规则"></a>键（Key）到槽位的映射规则</h6><p>Redis 通过固定算法将键映射到某个槽位，确保同一个键在集群中始终属于同一个槽位，避免数据混乱。具体步骤如下：</p>
+<ol>
+<li>对键执行哈希计算：使用<code>CRC16</code>算法计算键的哈希值（一个整数）。</li>
+<li>取模映射到槽位：将哈希值对 16384 取模（<code>hash % 16384</code>），结果即为该键对应的槽位编号（0~16383）。</li>
+</ol>
+<p>例如：</p>
+<ul>
+<li><p>键<code>&quot;name&quot;</code>的 CRC16 哈希值假设为<code>5000</code>，则<code>5000 % 16384 = 5000</code>，对应槽位 5000。</p>
+</li>
+<li><p>键<code>&quot;age&quot;</code>的 CRC16 哈希值假设为<code>20000</code>，则<code>20000 % 16384 = 3616</code>，对应槽位 3616。</p>
+</li>
+</ul>
+<h6 id="槽位与节点的关系"><a href="#槽位与节点的关系" class="headerlink" title="槽位与节点的关系"></a>槽位与节点的关系</h6><ul>
+<li><p><strong>一个节点可负责多个槽位</strong>：集群中的每个节点会 “认领” 一部分槽位（例如，节点 A 负责 0<del>5000，节点 B 负责 5001</del>10000，节点 C 负责 10001~16383）。</p>
+</li>
+<li><p><strong>槽位是集群状态的核心</strong>：Redis 集群通过维护 “槽位 - 节点” 的映射关系，确定每个键属于哪个节点。当客户端请求某个键时，会先计算其槽位，再根据映射关系找到负责该槽位的节点，将请求转发过去。</p>
+</li>
+</ul>
+<h6 id="槽位的迁移：集群动态调整"><a href="#槽位的迁移：集群动态调整" class="headerlink" title="槽位的迁移：集群动态调整"></a>槽位的迁移：集群动态调整</h6><p>当集群节点数量变化（新增节点、移除节点）时，Redis 会自动或手动触发<strong>槽位迁移</strong>，重新分配槽位以保持负载均衡：</p>
+<ul>
+<li><p><strong>迁移过程</strong>：将某个槽位的所有键从原节点复制到目标节点，完成后更新 “槽位 - 节点” 映射，并通知所有节点。</p>
+</li>
+<li><p><strong>原子性保证</strong>：迁移过程中，键的读写请求会被暂时锁定，确保数据一致性。</p>
+</li>
+<li><p><strong>无缝切换</strong>：客户端通过集群协议自动感知槽位迁移，无需人工干预。</p>
+</li>
+</ul>
+<h6 id="特殊情况：哈希标签（Hash-Tag）"><a href="#特殊情况：哈希标签（Hash-Tag）" class="headerlink" title="特殊情况：哈希标签（Hash Tag）"></a>特殊情况：哈希标签（Hash Tag）</h6><p>默认情况下，键的整体会参与哈希计算，但如果键中包含<code>&#123;&#125;</code>包裹的子串（称为哈希标签），则仅该子串会被用于计算槽位。<br>例如：</p>
+<ul>
+<li>键<code>&quot;user:&#123;100&#125;:name&quot;</code>和<code>&quot;user:&#123;100&#125;:age&quot;</code>中，<code>&#123;100&#125;</code>是哈希标签，两者会被映射到同一个槽位。<br>这一机制确保相关联的键（如同一用户的不同属性）存储在同一节点，方便批量操作（如<code>MGET</code>、<code>HMSET</code>）。</li>
+</ul>
+<h5 id="Slot槽位映射方案"><a href="#Slot槽位映射方案" class="headerlink" title="Slot槽位映射方案"></a>Slot槽位映射方案</h5><h6 id="方案一-哈希取余分区"><a href="#方案一-哈希取余分区" class="headerlink" title="方案一:哈希取余分区"></a>方案一:哈希取余分区</h6><p>将总空间（16384）按照机器数为空间平均划分空间，公式：hashc&#x3D;key%n(机器数)，将取得的hashc放入对应区间空间中</p>
+<p>如图所示：</p>
+<p><img src="Y:\ZBlog\source_posts\assets\image-20250818124124681.png" alt="image-20250818124124681"></p>
+<h6 id="方案二：一致性hash算法"><a href="#方案二：一致性hash算法" class="headerlink" title="方案二：一致性hash算法"></a>方案二：一致性hash算法</h6><p>该算法先将主机实例的IP或者主机名使用hash后对16384取模，算出来的结果便是主机在hash环上的落点，给n个主机均分区域</p>
+<p>所有结果在区间中围成一个环，使得首尾相连，插槽会顺时针去找落点，找到落点就放在该分片上。</p>
+<p>该算法解决了扩容机器或是缩容机器方案一的缺点，只需要删除或增加节点，使得区域落在下一个节点上或者得到其他节点的区域</p>
+<p>不过分配频繁后若没有手动干预会使得很多或者很少key落在一台主机上，数据分布不均匀</p>
+<p><img src="Y:\ZBlog\source_posts\assets\image-20250818125039379.png" alt="image-20250818125039379"></p>
+<p><img src="Y:\ZBlog\source_posts\assets\image-20250818125054172.png" alt="image-20250818125054172"></p>
+<h6 id="方案三-哈希槽分区算法"><a href="#方案三-哈希槽分区算法" class="headerlink" title="方案三:哈希槽分区算法"></a>方案三:哈希槽分区算法</h6><p>解决一致性hash算法中出现的分配不均匀问题，在数据和节点中间加入了一层，将这层称为哈希槽，用于管理节点和数据之间的关系</p>
+<p><img src="Y:\ZBlog\source_posts\assets\image-20250818125910561.png" alt="image-20250818125910561"></p>
+<p>数据会经过哈希槽，哈希槽解决的是映射问题，数据在槽中经过处理后分到对应的管理这些槽的节点中，槽本身不保存数据，只是一种映射关系</p>
+<p>一个集群只能有16384个槽，这些槽会分配给集群中的所有节点，分配策略没有要求</p>
+<p>集群会记录节点和槽的对应关系，解决了节点和槽的关系后，接下来对key进行求哈希值，然后对16384取模，余数是几key就落在对应的槽位中</p>
+<p>HASH_SLOT&#x3D;CRC16(KEY)mod 16384</p>
+<p>以槽为单位移动数据</p>
+<p><img src="Y:\ZBlog\source_posts\assets\image-20250818131016171.png" alt="image-20250818131016171"></p>
+<p>节点所管理的槽的示意图：</p>
+<p><img src="Y:\ZBlog\source_posts\assets\image-20250818130930268.png" alt="image-20250818130930268"></p>
+<h5 id="为什么最大槽位数是16384"><a href="#为什么最大槽位数是16384" class="headerlink" title="为什么最大槽位数是16384?"></a>为什么最大槽位数是16384?</h5><p><strong>1.如果槽位为65536，发送心跳信息的消息头达8k，发送的心跳包过于庞大。</strong>(<strong>节省数据传输的带宽，加速传输</strong>)</p>
+<p>如上所述，在消息头中，最占空间的是 <code>myslots[CLUSTER_SLOTS/8]</code>。 当槽位为65536时，这块的大小是: <code>65536÷8÷1024=8kb</code>因为每1秒钟都会发送1个，redis节点需要发送一定数量的ping消息作为心跳包，<strong>如果槽位为65536，这个ping消息的消息头太大了，浪费带宽。</strong></p>
+<p><strong>这里解释一下为什么65536÷8÷1024&#x3D;8kb，因为myslots[CLUSTER_SLOTS&#x2F;8]这个 数组里面存的是只可能是2进制状态码，为什么？因为这个东西的字节数是2kb ，换算下来，只能是1bit，也就只能是状态码，无非就是这个插槽是否为空，大胆猜 测1表示插槽已经有数据，0表示插槽为空， 也就是图中所谓 节点负责的槽信息 。</strong></p>
+<p><strong>2.redis的集群主节点数量基本不可能超过1000个。</strong>(<strong>本身系统设计</strong>)</p>
+<p>如上所述，集群节点越多，心跳包的消息体内携带的数据越多。如果节点过1000个，也会导致网络拥堵。因此redis作者，不建议redis cluster节点数量超过1000个。 <strong>那么，对于节点数在1000以内的redis cluster集群，16384个槽位够用了。没有必要拓展到65536个。</strong></p>
+<p><strong>3.槽位越小，节点少的情况下，压缩率高</strong>（<strong>保证压缩率</strong>）</p>
+<p>Redis主节点的配置信息中，它所负责的哈希槽是通过一张bitmap的形式来保存的，在传输过程中，会对bitmap进行压缩，但是如果bitmap的填充率slots &#x2F; N很高的话(N表示节点数)，bitmap的压缩率就很低。 <strong>如果节点数很少，而哈希槽数量很多的话，bitmap的压缩率就很低。</strong></p>
+<h5 id="一个注意点"><a href="#一个注意点" class="headerlink" title="一个注意点"></a>一个注意点</h5><p>Redis集群不保证强一致性，这意味着在特定的条件下，Redis集群可能会丢掉一些被系统收到的写入请求命令</p>
+<h5 id="集群环境案例步骤"><a href="#集群环境案例步骤" class="headerlink" title="集群环境案例步骤"></a>集群环境案例步骤</h5><h6 id="三主三从Redis集群配置"><a href="#三主三从Redis集群配置" class="headerlink" title="三主三从Redis集群配置"></a>三主三从Redis集群配置</h6><p>1、需要三台虚拟机，分别创建用于存放Redis集群配置文件的目录</p>
+<p>mkdir -p &#x2F;my-redis7&#x2F;cluster</p>
+<p>2、新建六个独立的Redis实例服务，我已为三台虚拟机分别配置固定的静态ip，分别是 66，88，99</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># 192.168.10.66:638x  redis_cluster_638x.conf</span><br><span class="line">bind 0.0.0.0</span><br><span class="line">daemonize yes</span><br><span class="line">protected-mode no</span><br><span class="line">port 638x</span><br><span class="line">logfile &quot;/my-redis7/cluster/cluster638x.log&quot;</span><br><span class="line">pidfile /my-redis7/cluster/cluster638x.pid</span><br><span class="line">dir /my-redis7/cluster</span><br><span class="line">dbfilename dump638x.rdb</span><br><span class="line">appendonly yes</span><br><span class="line">appendfilename &quot;appendonly638x.aof&quot;</span><br><span class="line">requirepass shiguang</span><br><span class="line">masterauth shiguang</span><br><span class="line"> </span><br><span class="line">cluster-enabled yes</span><br><span class="line">cluster-config-file nodes-638x.conf</span><br><span class="line">cluster-node-timeout 5000</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>3、分别启动六台Redis实例，以 192.18.10.66 这台虚拟机为例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/bin</span><br><span class="line">redis-server /my-redis7/cluster/redis_cluster_6381.conf</span><br><span class="line">redis-server /my-redis7/cluster/redis_cluster_6382.conf</span><br></pre></td></tr></table></figure>
+
+<p>4、通过redis-cli命令为六台机器构建集群关系</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -a shiguang --cluster create --cluster-replicas 1 192.168.10.66:6381 192.168.10.66:6382 192.168.10.88:6383 192.168.10.88:6384 192.168.10.99:6385 192.168.10.99:6386</span><br></pre></td></tr></table></figure>
+
+<p>通过 –cluster-replicas 1 选项，Redis 集群会自动为每个主节点分配一个从节点，以实现高可用性和数据冗余。主从节点会尽量分布在不同的物理机器上，以提高容错性。</p>
+<p>提示创建三主三从并返回主从关系及主节点槽位信息，询问是否接受，输入yes以继续</p>
+<p>M代表Master，S代表slave，可以注意到，6381从节点6384，6383从节点6386，6385从节点6382都在不同的虚拟机</p>
+<p>提示[OK]状态代表构建成功</p>
+<h5 id="查看并检验集群状态"><a href="#查看并检验集群状态" class="headerlink" title="查看并检验集群状态"></a>查看并检验集群状态</h5><h6 id="info-replication"><a href="#info-replication" class="headerlink" title="info replication"></a>info replication</h6><p>info replication 命令用于获取 Redis 实例的复制（replication）信息。这个命令主要用于查看主从复制的状态和配置。</p>
+<p>输出内容：</p>
+<p>role: 当前实例的角色，可以是 master 或 slave。<br>connected_slaves: 连接的从节点数量。<br>master_replid: 主节点的复制 ID。<br>master_repl_offset: 主节点的复制偏移量。<br>slave_repl_offset: 从节点的复制偏移量（如果是从节点）。<br>slave_priority: 从节点的优先级（用于故障转移）。<br>slave_read_only: 从节点是否只读。<br>master_host: 主节点的 IP 地址（如果是从节点）。<br>master_port: 主节点的端口号（如果是从节点）。<br>master_link_status: 主从连接状态，可以是 up 或 down。<br>master_last_io_seconds_ago: 最后一次与主节点通信的时间（秒）。<br>slave_repl_offset: 从节点的复制偏移量。<br>slave_priority: 从节点的优先级。<br>slave_read_only: 从节点是否只读。</p>
+<h6 id="cluster-info"><a href="#cluster-info" class="headerlink" title="cluster info"></a>cluster info</h6><p>cluster info 命令用于获取 Redis 集群的整体状态信息。这个命令主要用于查看集群的健康状况和性能指标。</p>
+<p>输出内容：<br>cluster_state: 集群的状态，可以是 ok（正常）或 fail（故障）。<br>cluster_slots_assigned: 已分配的槽位数量。<br>cluster_slots_ok: 状态正常的槽位数量。<br>cluster_slots_pfail: 可能失败的槽位数量。<br>cluster_slots_fail: 失败的槽位数量。<br>cluster_known_nodes: 集群中已知的节点数量。<br>cluster_size: 集群的大小（主节点数量）。<br>cluster_current_epoch: 当前的集群纪元。<br>cluster_my_epoch: 当前节点的纪元。<br>cluster_stats_messages_sent: 发送的消息数量。<br>cluster_stats_messages_received: 接收的消息数量。</p>
+<h6 id="cluster-nodes"><a href="#cluster-nodes" class="headerlink" title="cluster nodes"></a>cluster nodes</h6><p>cluster nodes 命令用于获取 Redis 集群中所有节点的详细信息。这个命令主要用于查看集群的拓扑结构和每个节点的状态。</p>
+<p>输出内容：<br>节点 ID: 每个节点的唯一标识符。<br>IP:端口: 节点的 IP 地址和端口号。<br>flags: 节点的状态标志，如 master、slave、myself、fail?、fail、handshake 等。<br>master ID: 如果是从节点，显示其主节点的 ID。<br>ping-sent: 最后一次发送 ping 的时间戳。<br>pong-received: 最后一次接收 pong 的时间戳。<br>config-epoch: 节点的配置纪元。<br>link-state: 节点的连接状态，如 connected 或 disconnected。<br>槽位范围: 如果是主节点，显示其负责的槽位范围。</p>
+<h5 id="三主三从集群读写"><a href="#三主三从集群读写" class="headerlink" title="三主三从集群读写"></a>三主三从集群读写</h5><p>对6381新增两个key，查看效果</p>
+<p>测试效果只能存入key2，查询也只能查到key2，存入key1时提示要到 6383这台机器上操作</p>
+<p>原因:</p>
+<p>写入时需要注意槽位的范围区间，需要路由到位</p>
+<p><strong>解决措施：</strong></p>
+<h6 id="redis-cli-c"><a href="#redis-cli-c" class="headerlink" title="**redis-cli -c **"></a>**redis-cli -c **</h6><p><strong>是 Redis 命令行界面（CLI）的一个选项，它允许你以“集群模式”连接到 Redis 集群。当你使用 -c 参数启动 redis-cli 时，它会尝试与 Redis 集群交互，并且能够智能地将命令路由到正确的集群节点上。</strong></p>
+<p>为防止路由失效，可在登录客户端时添加参数 -c，以集群模式连接到Redis集群，c 即 cluster</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">使用方法</span><br><span class="line"></span><br><span class="line">基本的用法是这样的：</span><br><span class="line"></span><br><span class="line">redis-cli -c host1 port1 host2 port2 ...</span><br><span class="line">这里的 host1 和 port1 是集群中第一个节点的地址，host2 和 port2 是第二个节点的地址，以此类推。你需要提供集群中至少一个节点的信息，但是为了更健壮的连接性，通常提供多个节点的地址是更好的选择。</span><br><span class="line"></span><br><span class="line">重要注意事项</span><br><span class="line"></span><br><span class="line">自动重定向：当在集群模式下运行时，如果命令需要在不同的槽上执行，redis-cli 会自动处理重定向，并将结果合并为单个输出。</span><br><span class="line">集群拓扑发现：redis-cli 会通过集群的内置机制来发现整个集群的拓扑结构。</span><br><span class="line">数据分布：Redis 集群通过哈希槽（hash slot）来分配数据，共有 16384 个哈希槽，这些哈希槽分布在集群中的各个节点上。redis-cli -c 会根据这个分布情况来决定哪个命令应该发送到哪个节点。</span><br><span class="line">如果你希望连接到一个 Redis 集群，确保你的环境中正确安装了支持集群功能的 redis-cli 版本。此外，如果你的 Redis 集群配置了认证，还需要使用 -a password 参数指定密码。</span><br><span class="line"></span><br><span class="line">例如：</span><br><span class="line">redis-cli -c --cluster nodes 127.0.0.1 6379 --cluster-password your_password</span><br><span class="line">这里 --cluster nodes 后面跟着的是集群节点的地址列表，而 --cluster-password 则指定了访问集群所需的密码。请注意，实际的命令可能会有所不同，具体取决于你的 Redis 安装和集群的具体配置。</span><br></pre></td></tr></table></figure>
+
+<p>若要查看某个key对应的槽位值，可以使用 </p>
+<h6 id="CLUSTER-KEYSLOT-key"><a href="#CLUSTER-KEYSLOT-key" class="headerlink" title="CLUSTER KEYSLOT key"></a>CLUSTER KEYSLOT key</h6><h5 id="主从容错切换迁移案例"><a href="#主从容错切换迁移案例" class="headerlink" title="主从容错切换迁移案例"></a>主从容错切换迁移案例</h5><h6 id="两个问题："><a href="#两个问题：" class="headerlink" title="两个问题："></a>两个问题：</h6><p>1、主节点宕机，从节点能否顺利上位为主节点？</p>
+<p>2、宕机的主节点恢复后，能否重新上位，恢复如初？</p>
+<h6 id="结论："><a href="#结论：" class="headerlink" title="结论："></a>结论：</h6><p>1、主节点宕机，从节点能顺利上位为新的主节点</p>
+<p>2、宕机的主节点恢复，不能再次恢复到主节点</p>
+<h6 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h6><p>集群不保证数据100%一致性，会有一定数据丢失情况</p>
+<p>如果某一台主节点宕机了，从节点还没有成功上位，在从节点上位的这个间隙内有新的写入操作，数据将会丢失</p>
+<h5 id="手动故障迁移-节点从属调整"><a href="#手动故障迁移-节点从属调整" class="headerlink" title="手动故障迁移&#x2F;节点从属调整"></a>手动故障迁移&#x2F;节点从属调整</h5><h6 id="CLUSTER-FAILOVER-将从节点提升到主节点"><a href="#CLUSTER-FAILOVER-将从节点提升到主节点" class="headerlink" title="CLUSTER FAILOVER 将从节点提升到主节点"></a>CLUSTER FAILOVER 将从节点提升到主节点</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">CLUSTER FAILOVER 是 Redis 集群模式下的一个管理命令，用于触发一个手动的故障转移过程。在 Redis 集群中，每个主节点（master）可以有多个从节点（slave），从节点主要用于读取操作或作为备份数据。如果某个主节点出现故障，Redis 集群可以通过自动故障转移机制将从节点提升为主节点，以保持集群的可用性。</span><br><span class="line"></span><br><span class="line">命令格式</span><br><span class="line"></span><br><span class="line">CLUSTER FAILOVER [NO-RECONFIG]</span><br><span class="line"></span><br><span class="line">参数说明</span><br><span class="line">NO-RECONFIG：这是一个可选参数，当指定此参数时，不会重新配置从节点为新的主节点。这意味着在故障转移后，旧的从节点将成为新的主节点，但它不会立即创建新的从节点。这对于某些特定的故障转移场景可能有用，比如当管理员想要手动控制后续的从节点设置时。</span><br><span class="line"></span><br><span class="line">功能</span><br><span class="line">当你在 Redis 集群中执行 CLUSTER FAILOVER 命令时，将会发生以下事情：</span><br><span class="line"></span><br><span class="line">手动触发故障转移：强制将从节点提升为主节点，以替代已知不可用的主节点。</span><br><span class="line">重新分配槽：新提升的主节点将接管原主节点负责的所有哈希槽。</span><br><span class="line">重新配置从节点：如果未指定 NO-RECONFIG 参数，则新的主节点将自动重新配置其从节点关系。</span><br><span class="line"></span><br><span class="line">注意事项</span><br><span class="line">执行 CLUSTER FAILOVER 命令通常是在主节点确实已经确认不可用的情况下进行的。</span><br><span class="line">如果集群中有足够的健康节点，并且配置了复制关系，那么自动故障转移通常会在后台默默地完成，不需要人工干预。</span><br><span class="line">在执行 CLUSTER FAILOVER 之前，请确保了解集群的当前状态以及故障转移的影响范围。</span><br><span class="line"></span><br><span class="line">示例</span><br><span class="line">假设你想要手动触发一个故障转移过程，可以这样执行命令：</span><br><span class="line"></span><br><span class="line">redis-cli -c &lt;cluster-node-1&gt; &lt;cluster-node-2&gt; ... cluster failover</span><br><span class="line">或者如果你想手动触发故障转移但不重新配置从节点，可以这样执行：</span><br><span class="line"></span><br><span class="line">redis-cli -c &lt;cluster-node-1&gt; &lt;cluster-node-2&gt; ... cluster failover no-reconfig</span><br><span class="line">请替换 &lt;cluster-node-1&gt;、&lt;cluster-node-2&gt; 等为你集群中的节点信息。确保你在执行命令前有足够的权限，并且理解该命令对集群的影响。</span><br></pre></td></tr></table></figure>
+
+<h5 id="主从扩容案例"><a href="#主从扩容案例" class="headerlink" title="主从扩容案例"></a>主从扩容案例</h5><h6 id="1-新建6387，6388两个实例并启动"><a href="#1-新建6387，6388两个实例并启动" class="headerlink" title="1.新建6387，6388两个实例并启动"></a>1.新建6387，6388两个实例并启动</h6><p><img src="Y:\ZBlog\source_posts\assets\image-20250818133450318.png" alt="image-20250818133450318"></p>
+<h6 id="2-将新增的6387-空槽号-作为master节点加入到原有集群"><a href="#2-将新增的6387-空槽号-作为master节点加入到原有集群" class="headerlink" title="2.将新增的6387(空槽号)作为master节点加入到原有集群"></a>2.将新增的6387(空槽号)作为master节点加入到原有集群</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -a &lt;密码&gt; --cluster add-node &lt;自己实际IP地址&gt;:6387 &lt;自己实际IP地址&gt;:6381</span><br></pre></td></tr></table></figure>
+
+<p>6387 就是将要作为master新增节点</p>
+<p>6381 就是原来集群节点里面的领路人，相当于6387拜拜6381的码头从而找到组织加入集群</p>
+<h6 id="3、在任意实例检查集群状态"><a href="#3、在任意实例检查集群状态" class="headerlink" title="3、在任意实例检查集群状态"></a>3、在任意实例检查集群状态</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -a shiguang --cluster check 192.168.10.66:6381</span><br></pre></td></tr></table></figure>
+
+<p>可以看到6387已经加入到集群，但是 0 slots，0 slaves，也就是说暂时还没有分配到槽号</p>
+<h6 id="4、重新分配槽号"><a href="#4、重新分配槽号" class="headerlink" title="4、重新分配槽号"></a>4、重新分配槽号</h6><p>在任意一个Redis实例使用 RESHARD 命令重新分派槽号</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -a 密码 --cluster reshard IP地址:端口号</span><br></pre></td></tr></table></figure>
+
+<p>询问我们想要分配多少个槽号，现在集群中一共有4个master节点，一共16384个槽号，平均分配 16384&#x2F;4 &#x3D; 4096</p>
+<p>询问我们新分配的槽号谁来接收</p>
+<p>复制6387的实例ID</p>
+<p>输入all</p>
+<p>输入 yes</p>
+<h6 id="5、槽位重新分配后重新检查"><a href="#5、槽位重新分配后重新检查" class="headerlink" title="5、槽位重新分配后重新检查"></a>5、槽位重新分配后重新检查</h6><p>可以看到6387已经分配了4096个槽号</p>
+<p>另外可以看到，新分配的6387的槽号是不连续的，[0-1364],[5461-6826],[10923-12287]，而之前的都是连续的</p>
+<p>为什么会出现这个情况呢？原因是重新分配成本太高，所以前3家各自匀出来一部分，从6381&#x2F;6383&#x2F;6385三个旧节点分别匀出1364个坑位给新节点6387</p>
+<h6 id="6、为6387主节点分配从节点6388"><a href="#6、为6387主节点分配从节点6388" class="headerlink" title="6、为6387主节点分配从节点6388"></a>6、为6387主节点分配从节点6388</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -a 密码 --cluster add-node ip:新slave端口 ip:新master端口 --cluster-slave --cluster-master-id 新主节点ID </span><br></pre></td></tr></table></figure>
+
+<h6 id="7、重新检查集群状态"><a href="#7、重新检查集群状态" class="headerlink" title="7、重新检查集群状态"></a>7、重新检查集群状态</h6><p>可以看到集群已经变为四主四从，且6388的主节点为6387</p>
+<h5 id="主从缩容案例"><a href="#主从缩容案例" class="headerlink" title="主从缩容案例"></a>主从缩容案例</h5><p>假设我们需要6387和6388下线，恢复三主三从</p>
+<h6 id="1、检查集群状况，先获得从节点6388的节点ID"><a href="#1、检查集群状况，先获得从节点6388的节点ID" class="headerlink" title="1、检查集群状况，先获得从节点6388的节点ID"></a>1、检查集群状况，先获得从节点6388的节点ID</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -a shiguang --cluster check ip:从机端口</span><br></pre></td></tr></table></figure>
+
+<h6 id="2、从集群中将6388删除"><a href="#2、从集群中将6388删除" class="headerlink" title="2、从集群中将6388删除"></a>2、从集群中将6388删除</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -a 密码 --cluster del-node ip:从机端口 从机6388节点ID</span><br></pre></td></tr></table></figure>
+
+<p>此处使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -a shiguang --cluster del-node 192.168.10.99:6388 025bd894baf8fd48144165d1d44f16c5b87f9108</span><br></pre></td></tr></table></figure>
+
+<h6 id="3、重新检查集群状态"><a href="#3、重新检查集群状态" class="headerlink" title="3、重新检查集群状态"></a>3、重新检查集群状态</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -a shiguang --cluster check ip:从机端口 </span><br></pre></td></tr></table></figure>
+
+<p>可以看到6387下0 slaves，说明6388已经移除集群，集群中只剩下7个实例</p>
+<h6 id="4、将6387槽号清空，将槽号重新分配给6381实例"><a href="#4、将6387槽号清空，将槽号重新分配给6381实例" class="headerlink" title="4、将6387槽号清空，将槽号重新分配给6381实例"></a>4、将6387槽号清空，将槽号重新分配给6381实例</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -a shiguang --cluster reshard 192.168.10.66:6381</span><br><span class="line">//还是重新分配slot的命令</span><br><span class="line"></span><br><span class="line">1 分配出多少插槽？ 4096(退还插槽的master的全部插槽，自行选择回车)</span><br><span class="line"></span><br><span class="line">2 谁来接收？ </span><br><span class="line">本案例我们选择让6381接收全部退还的插槽，所以此处输入6381的长串ID并回车</span><br><span class="line">3 紧接上一步，此处还会有一个，我们填充要删除的节点的长串ID</span><br><span class="line">4 输入done 表示删除它</span><br></pre></td></tr></table></figure>
+
+<h6 id="5、重新检查集群状态"><a href="#5、重新检查集群状态" class="headerlink" title="5、重新检查集群状态"></a>5、重新检查集群状态</h6><p>可以看到6387节点变成了6381的从节点</p>
+<p>4096个槽位都指给6381，它变成了8192个槽位，相当于全部都给6381了，不然要输入3次，一锅端</p>
+<h6 id="6、将6387删除"><a href="#6、将6387删除" class="headerlink" title="6、将6387删除"></a>6、将6387删除</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -a shiguang --cluster del-node ip:端口 6387节点ID</span><br></pre></td></tr></table></figure>
+
+<h6 id="7、重新检查集群状态-1"><a href="#7、重新检查集群状态-1" class="headerlink" title="7、重新检查集群状态"></a>7、重新检查集群状态</h6><h5 id="集群常用操作命令和CRC16算法分析"><a href="#集群常用操作命令和CRC16算法分析" class="headerlink" title="集群常用操作命令和CRC16算法分析"></a>集群常用操作命令和CRC16算法分析</h5><h6 id="通识占位符"><a href="#通识占位符" class="headerlink" title="通识占位符"></a>通识占位符</h6><p>不在同一个slot槽位下的多键操作支持不好，不在同一个slot槽位下的键值无法使用mset、mget等多键操作</p>
+<p>可以通过{}来定义同一个组的概念，使key中{}内相同内容的键值对放到一个slot槽位去</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">此时我们使用</span><br><span class="line">mset k1&#123;z&#125; v1 k2&#123;z&#125; v2 k3&#123;z&#125; v3</span><br><span class="line">该命令会将其放置同一以分片下。</span><br><span class="line"></span><br><span class="line">获取时 mget k1&#123;z&#125; k2&#123;z&#125; k3&#123;z&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="如何让Redis集群保持始终可用"><a href="#如何让Redis集群保持始终可用" class="headerlink" title="如何让Redis集群保持始终可用"></a>如何让Redis集群保持始终可用</h5><p>有时候我们会面临一种情况，其中一个分片的master很slave都挂掉了 在默认配置下，Redis会停止对外服务，其实在这时候，插槽已经不完整了。</p>
+<p>如果想要Redis在这种情况下依旧可用，我们需要在实例启动的配置文件中加入</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cluster-<span class="keyword">require</span>-full-coverage <span class="keyword">no</span>  默认为yes。</span><br><span class="line">注意，在这种情况下，坏掉的那部分slot不可写也不可取</span><br></pre></td></tr></table></figure>
+
+<h5 id="cluster常用命令"><a href="#cluster常用命令" class="headerlink" title="cluster常用命令"></a>cluster常用命令</h5><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cluster countkeysinslot 槽位号 </span><br><span class="line"><span class="comment">//返回值为1表示该槽位已经被占用 0表示未被占用</span></span><br><span class="line"></span><br><span class="line">cluster keyslot 键名  </span><br><span class="line"><span class="comment">// 查询该键会被存储在哪里。</span></span><br></pre></td></tr></table></figure>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">night</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://ifhy.online/2025/11/17/redis-xue-xi-bi-ji-0/">http://ifhy.online/2025/11/17/redis-xue-xi-bi-ji-0/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">night</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Learn/">
+                                    <span class="chip bg-color">Learn</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipayandwechat.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/alipayandwechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("/") 100% 100% no-repeat;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="vcomments" class="card-content" style="display: grid">
+    </div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: 'oJfDLVth36VtQ7W1cSPLvBgY-gzGzoHsz',
+        appKey: 'bctVxgPrWAqaAynajxGPhQ5j',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'mm',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: '说些什么'
+    });
+</script>
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2025/11/17/redis-xue-xi-bi-ji-0/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/coverMYSQL.jpg" class="responsive-img" alt="redis学习笔记">
+                        
+                        <span class="card-title">redis学习笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            我的学习笔记
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-11-17
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    学习
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Learn/">
+                        <span class="chip bg-color">Learn</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/11/17/li-kou-shua-ti-bi-ji/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/coverLEETCODE.jpg" class="responsive-img" alt="力扣刷题笔记">
+                        
+                        <span class="card-title">力扣刷题笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            我的学习笔记
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-11-17
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    学习
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/learn/">
+                        <span class="chip bg-color">learn</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: NightC<br />'
+            + '文章作者: night<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+    <div class="container row center-align" style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2024-2025</span>
+            
+            <span id="year">2024</span>
+            <a href="/about" target="_blank">night</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">25.9k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2024";
+                    var startMonth = "11";
+                    var startDate = "6";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/A2234736303" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:2234736303@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2234736303" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2234736303" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+	
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+
+</body>
+
+</html>
